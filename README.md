@@ -7,7 +7,8 @@ Objectives:
 1. Interpreting statements and expressions
 2. Accounting for operator precedence and interpreting the various operators SMPL offers
 3. Interpreting pairs and their associated operations (first obj of pair, second obj of pair, is of type pair)
-4. Interpreting lists and the associated operations 
+4. Interpreting lists and the associated operations   
+...more to be added later
 
 Extensions (Optional):
 1. Tail Recursion
@@ -20,7 +21,7 @@ Extensions (Optional):
 8. Call by reference parameter passing
 9. Identifiers that permit arithmetic operators within them
 10. Redefinable built-in procedures
-11. Iteration forms 
+11. Iteration forms
 
 ... and any additional ideas that pop up
 
