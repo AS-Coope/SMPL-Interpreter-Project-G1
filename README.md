@@ -4,7 +4,10 @@ COMP 3652 - Final Project to complete an interpreter for the language SMPL
 Final Date for Checkoff: January 4, 2022 
 
 Objectives:
-
+1. Interpreting statements and expressions
+2. Accounting for operator precedence and interpreting the various operators SMPL offers
+3. Interpreting pairs and their associated operations (first obj of pair, second obj of pair, is of type pair)
+4. Interpreting lists and the associated operations 
 
 Extensions (Optional):
 1. Tail Recursion
