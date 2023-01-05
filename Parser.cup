@@ -54,6 +54,15 @@ terminal TRUE, FALSE;
 // arithmetic operators
 terminal PLUS, MINUS, MUL, DIV, MOD, POW, ASSIGN;
 
+// relational operators
+terminal AND, OR, NOT;
+
+// bitwise operators
+terminal BWAND, BWOR, BWNOT;
+
+// list concatentation
+terminal LSCONCAT;
+
 // terminals with values
 terminal Integer INT;
 terminal String VAR;
@@ -82,6 +91,7 @@ non terminal ArrayList<Integer> pair;
 non terminal Exp expression;
 non terminal Exp term;
 non terminal Exp factor;
+non terminal pow;
 non terminal empty;
 
 /* Grammar rules */
@@ -115,9 +125,10 @@ definition ::= VAR:v ASSIGN expression:e SEMI {:
 		   RESULT = new StmtDefinition(v, e);
 		:};
 
-pair ::= LBRACE expression:c COMMA expression:g RBRACE {:RESULT = ;:}
+//pair ::= LBRACE expression:c COMMA expression:g RBRACE {:RESULT = ;:}
 
-eqv? ::= LBRACE expression:e COMMA expression:j RBRACE {:RESULT = new ExpIf();:} // checking the equivalence
+//eqv? ::= LBRACE expression:e COMMA expression:j RBRACE {:RESULT = new ExpIf();:} // checking the equivalence
+//equal? ::= LBRACE expression:e1 COMMA expression:e2 RBRACE {:RESULT = new Exp}
 
 expression ::= 	expression:e PLUS term:t {:
 			RESULT = new ExpAdd(e, t); :} |
@@ -136,7 +147,7 @@ term ::= term:t MUL factor:f {:
 // production rule for power
 factor ::= factor:f POW pow:p {:
 		RESULT = new ExpPow(f, p); :} |
-	 pow:p {: RESULT = p; :}
+	 pow:p {: RESULT = p; :};
 
 funCall ::= VAR:v LPAREN argListE:a RPAREN {:RESULT = new ExpFunCall(v,a);:};
 
@@ -145,7 +156,7 @@ argList ::= argList:al COMMA expression:e {:al.add(e); RESULT = al;:} | expressi
 argListE ::= argList:pl {:RESULT = pl;:} | empty:e {:RESULT = new ArrayList<Exp>(); :};
 
 
-factor ::= INT:ilit {: RESULT = new ExpLit(ilit); :} |
+pow ::= INT:ilit {: RESULT = new ExpLit(ilit); :} |
 	   VAR:var {: RESULT = new ExpVar(var); :} |
 	   LPAREN expression:e RPAREN {: RESULT = e; :}	| funCall:fc {:RESULT = fc;:};
 

@@ -122,6 +122,8 @@ string = "[^cc]"
 <YYINITIAL> "pair?" {return new Symbol(sym.ISPAIR);}
 <YYINITIAL> "list" {return new Symbol(sym.LIST);}
 
+<YYINITIAL> "\\" {return new Symbol(sym.INLINECOM);}
+
 <YYINITIAL>    {alpha}{alphanum}* {
 	       // VAR
 	       return new Symbol(sym.VAR, yytext());
