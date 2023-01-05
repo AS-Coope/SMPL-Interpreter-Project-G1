@@ -57,7 +57,7 @@ alphanum = {alpha}|[0-9]
 
 signedint = [+|-][0-9]+ // generates signed integers
 
-string = "[^cc] "
+string = "[^cc]"
 
 %%
 
