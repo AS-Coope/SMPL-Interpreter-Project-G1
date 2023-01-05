@@ -55,6 +55,10 @@ alpha = [a-zA-Z_]
 
 alphanum = {alpha}|[0-9]
 
+signedint = [+|-][0-9]+ // generates signed integers
+
+string = "[^cc] "
+
 %%
 
 <YYINITIAL>	{nl}	{//skip newline, but reset char counter
@@ -97,7 +101,7 @@ alphanum = {alpha}|[0-9]
 
 <YYINITIAL> "#t" {return new Symbol(sym.TRUE);}
 <YYINITIAL> "#f" {return new Symbol(sym.FALSE;)}
-<YYINITIAL> "#e" {return new Symbol(sym.);} // empty list (nil)
+<YYINITIAL> "#e" {return new Symbol(sym.EMPLS);} // empty list (nil)
 
 // LOGICAL OPERATORS
 <YYINITIAL> "and" {return new Symbol(sym.AND);}
@@ -111,6 +115,12 @@ alphanum = {alpha}|[0-9]
 <YYINITIAL> "&" {return new Symbol(sym.BWAND);}
 <YYINITIAL> "|" {return new Symbol(sym.BWOR);}
 <YYINITIAL> "~" {return new Symbol(sym.BWNOT);}
+
+<YYINITIAL> "pair" {return new Symbol(sym.PAIR);}
+<YYINITIAL> "car" {return new Symbol(sym.CAR);}
+<YYINITIAL> "cdr" {return new Symbol(sym.CDR);}
+<YYINITIAL> "pair?" {return new Symbol(sym.ISPAIR);}
+<YYINITIAL> "list" {return new Symbol(sym.LIST);}
 
 <YYINITIAL>    {alpha}{alphanum}* {
 	       // VAR
