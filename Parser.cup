@@ -42,13 +42,19 @@ scan with {:
 
 /* Terminals (tokens returned by the scanner). */
 // keywords
-terminal FUN;
+terminal FUN, PROC, DEF, CALL, LET, CASE;
+terminal IF, ELSE, END, THEN;
+terminal PAIR, CAR, CDR, ISPAIR, ISEQV, ISEQUAL, SUBSTR;
 
 // special symbols
 terminal LPAREN, RPAREN, SEMI;
-terminal LBRACE, RBRACE, COMMA, EQU;
+terminal LBRACE, RBRACE, COMMA, EQU, RSQBRAC, LSQBRAC;
 terminal COLON;
-terminal IF, ELSE, END; 
+
+// utilities
+terminal PRINT, PRINTLN, READ, READINT;
+
+// boolean
 terminal TRUE, FALSE;
 
 // arithmetic operators
@@ -60,8 +66,8 @@ terminal AND, OR, NOT;
 // bitwise operators
 terminal BWAND, BWOR, BWNOT;
 
-// list concatentation
-terminal LSCONCAT;
+// list operations
+terminal LIST, LSCONCAT, EMPLS;
 
 // terminals with values
 terminal Integer INT;
@@ -84,14 +90,14 @@ non terminal ArrayList<Exp> argListE;
 non terminal Exp StmtIf; //TODO replace with IR
 non terminal Exp StmtIfElse;
 non terminal ExpLogic LogExp;
-non terminal ArrayList<Integer> pair;
+//non terminal ArrayList<Integer> pair;
 
 /* **** */
 
 non terminal Exp expression;
 non terminal Exp term;
 non terminal Exp factor;
-non terminal pow;
+non terminal Exp pow;
 non terminal empty;
 
 /* Grammar rules */
@@ -128,7 +134,6 @@ definition ::= VAR:v ASSIGN expression:e SEMI {:
 //pair ::= LBRACE expression:c COMMA expression:g RBRACE {:RESULT = ;:}
 
 //eqv? ::= LBRACE expression:e COMMA expression:j RBRACE {:RESULT = new ExpIf();:} // checking the equivalence
-//equal? ::= LBRACE expression:e1 COMMA expression:e2 RBRACE {:RESULT = new Exp}
 
 expression ::= 	expression:e PLUS term:t {:
 			RESULT = new ExpAdd(e, t); :} |
@@ -148,6 +153,7 @@ term ::= term:t MUL factor:f {:
 factor ::= factor:f POW pow:p {:
 		RESULT = new ExpPow(f, p); :} |
 	 pow:p {: RESULT = p; :};
+	 
 
 funCall ::= VAR:v LPAREN argListE:a RPAREN {:RESULT = new ExpFunCall(v,a);:};
 

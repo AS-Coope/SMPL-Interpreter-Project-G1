@@ -21,11 +21,12 @@ public interface Visitor<S, T> {
     public T visitExpFunCall(ExpFunCall fc, S arg) throws VisitException;
 
     // expressions
-    public T visitExpAdd(ExpAdd exp, S arg) throws VisitException ;
+    public T visitExpAdd(ExpAdd exp, S arg) throws VisitException;
     public T visitExpSub(ExpSub exp, S arg) throws VisitException;
     public T visitExpMul(ExpMul exp, S arg) throws VisitException;
     public T visitExpDiv(ExpDiv exp, S arg) throws VisitException;
     public T visitExpMod(ExpMod exp, S arg) throws VisitException;
+    public T visitExpPow(ExpPow exp, S arg) throws VisitException;
     public T visitExpLit(ExpLit exp, S arg) throws VisitException;
     public T visitExpVar(ExpVar exp, S arg) throws VisitException;
 

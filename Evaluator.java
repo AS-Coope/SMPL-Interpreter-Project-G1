@@ -136,6 +136,24 @@ public class Evaluator implements Visitor<Environment<Double>, Double> {
 	return val1 % val2;
     }
 
+	public Double visitExpPow(ExpPow exp, Environment<Double> env)
+	throws VisitException {
+	Double val1, val2;
+	val1 = exp.getExpL().visit(this, env);
+	val2 = exp.getExpR().visit(this, env);
+	return raise(val2,val1);
+    }
+
+	public Double raise(Double root1, Double root2){
+		// power is done by right to left
+		// whatever is in the right subtree is raised to that in the left subtree
+		Double ans = 1.0;
+		for (int i = 0; i < root1; i++){
+			ans = root2 * ans;
+		}
+		return ans;
+	}
+
     public Double visitExpLit(ExpLit exp, Environment<Double> env)
 	throws VisitException {
 	return Double.valueOf(exp.getVal());

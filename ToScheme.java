@@ -106,6 +106,13 @@ public class ToScheme implements Visitor<Void, String> {
 	return "(mod " + left + " " + right + ")";
     }
 
+	public String visitExpPow(ExpPow exp, Void arg)
+	throws VisitException{
+	String left = exp.getExpL().visit(this, arg);
+	String right = exp.getExpR().visit(this, arg);
+	return "(pow " + left + " " + right + ")";
+    }
+
     public String visitExpLit(ExpLit exp, Void arg)
 	throws VisitException{
 	return "" + exp.getVal();
