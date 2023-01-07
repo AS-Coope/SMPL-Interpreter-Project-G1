@@ -35,7 +35,7 @@ public abstract class SMPLObject {
 
     public SMPLObject raise(SMPLObject obj) throws SMPLException {
         throw new SMPLException("Method not implemented");
-    } 
+    }
 
     public SMPLObject mod(SMPLObject obj) throws SMPLException {
         throw new SMPLException("Method not implemented");
@@ -72,18 +72,18 @@ public abstract class SMPLObject {
     public SMPLObject notequal(SMPLObject obj) throws SMPLException {
         throw new SMPLException("Method not implemented");
     }
-    //arbitrary methods
+    // arbitrary methods
 
     public SMPLObject substr(SMPLObject startIndex, SMPLObject endIndex) throws SMPLException {
         throw new SMPLException("Method not implemented");
     }
 
     // pair (and subsequently) list operations
-    public SMPLObject cdr(SMPLObject obj) throws SMPLException {
+    public SMPLObject cdr() throws SMPLException {
         throw new SMPLException("Method not implemented");
     }
 
-    public SMPLObject car(SMPLObject obj) throws SMPLException {
+    public SMPLObject car() throws SMPLException {
         throw new SMPLException("Method not implemented");
     }
 
@@ -103,4 +103,3 @@ public abstract class SMPLObject {
         throw new SMPLException("Method not implmented");
     }
 }
-

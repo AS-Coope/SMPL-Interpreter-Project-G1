@@ -166,16 +166,29 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 		return new SMPLPair(first, second);
 	}
 
+	public SMPLObject visitExpCar(ExpCar exp, Environment<SMPLObject> env) throws VisitException {
+		SMPLObject obj = exp.getPair().visit(this, env);
+		return obj.car();
+	}
+
+	public SMPLObject visitExpCdr(ExpCdr exp, Environment<SMPLObject> env) throws VisitException {
+		SMPLObject obj = exp.getPair().visit(this, env);
+		return obj.cdr();
+	}
+
 	public SMPLObject visitExpisPair(ExpisPair exp, Environment<SMPLObject> env) throws VisitException {
 		SMPLObject obj = exp.getExp().visit(this, env);
 		return obj.isPair();
 	}
 
-	/*public SMPLObject visitExpDef(ExpDef exp, Environment<SMPLObject> env) throws VisitException {
-		SMPLObject obj = exp.getExp().visit(this, env);
-		//return obj.isPair();
-		return new SMPLDouble(2.0);
-	}*/
+	/*
+	 * public SMPLObject visitExpDef(ExpDef exp, Environment<SMPLObject> env) throws
+	 * VisitException {
+	 * SMPLObject obj = exp.getExp().visit(this, env);
+	 * //return obj.isPair();
+	 * return new SMPLDouble(2.0);
+	 * }
+	 */
 
 	public SMPLObject visitExpList(ExpList expList, Environment<SMPLObject> env) throws VisitException {
 		// create empty SMPLPairList
@@ -233,18 +246,18 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 		SMPLObject val1 = new SMPLDouble(1.0);
 		return val1;
 	}
-	/* 
-	public SMPLObject raise(SMPLObject root1, SMPLDouble root2) {
-		// power is done by right to left
-		// whatever is in the right subtree is raised to that in the left subtree
-		// SMPLObject ans = 1.0;
-		SMPLObject ans = new SMPLDouble(1.0);
-		for (int i = 0; i < root1; i++) {
-			ans = root2.mult(ans);
-		}
-		return ans;
-	} // create a raise method then implement it in
-	*/ 
+	/*
+	 * public SMPLObject raise(SMPLObject root1, SMPLDouble root2) {
+	 * // power is done by right to left
+	 * // whatever is in the right subtree is raised to that in the left subtree
+	 * // SMPLObject ans = 1.0;
+	 * SMPLObject ans = new SMPLDouble(1.0);
+	 * for (int i = 0; i < root1; i++) {
+	 * ans = root2.mult(ans);
+	 * }
+	 * return ans;
+	 * } // create a raise method then implement it in
+	 */
 
 	public SMPLObject visitExpLit(ExpLit exp, Environment<SMPLObject> env)
 			throws VisitException {
@@ -256,28 +269,30 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 		return env.get(exp.getVar());
 	}
 
-	/* 
-	public SMPLObject visitExpLogic(ExpLogic exp, Environment<SMPLObject> env)
-			throws VisitException { 
-		boolean b = exp.operator.apply(exp.left.visit(this, env), exp.right.visit(this, env));
-		//SMPLBoolean x = new SMPLBoolean(b);
-		return b ? 1.0 : 0;
-	}
-
-	// IMPLEMENT THE VARIOUS visit methods for all the necessary operations
-
-	public SMPLObject visitExpIf(ExpIf exp, Environment<SMPLObject> env)
-			throws VisitException {
-		double res = exp.predicate.visit(this, env);
-		if (res == 1.0) {
-			return exp.consequent.visit(this, env);
-		} else {
-			if (exp.alternative != null) {
-				return exp.alternative.visit(this, env);
-			} else {
-				return 0.0;
-			}
-		}
-	}*/
+	/*
+	 * public SMPLObject visitExpLogic(ExpLogic exp, Environment<SMPLObject> env)
+	 * throws VisitException {
+	 * boolean b = exp.operator.apply(exp.left.visit(this, env),
+	 * exp.right.visit(this, env));
+	 * //SMPLBoolean x = new SMPLBoolean(b);
+	 * return b ? 1.0 : 0;
+	 * }
+	 * 
+	 * // IMPLEMENT THE VARIOUS visit methods for all the necessary operations
+	 * 
+	 * public SMPLObject visitExpIf(ExpIf exp, Environment<SMPLObject> env)
+	 * throws VisitException {
+	 * double res = exp.predicate.visit(this, env);
+	 * if (res == 1.0) {
+	 * return exp.consequent.visit(this, env);
+	 * } else {
+	 * if (exp.alternative != null) {
+	 * return exp.alternative.visit(this, env);
+	 * } else {
+	 * return 0.0;
+	 * }
+	 * }
+	 * }
+	 */
 
 }
