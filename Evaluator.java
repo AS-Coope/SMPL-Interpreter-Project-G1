@@ -169,6 +169,8 @@ public class Evaluator implements Visitor<Environment<Double>, Double> {
 		boolean b =	exp.operator.apply( exp.left.visit(this, env), exp.right.visit(this, env));
 		return b ? 1.0 : 0;
     }
+	
+	//IMPLEMENT THE VARIOUS visit methods for all the necessary operations
 
 	public Double visitExpIf(ExpIf exp, Environment<Double> env)
 	throws VisitException {

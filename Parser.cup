@@ -52,7 +52,7 @@ terminal LBRACE, RBRACE, COMMA, EQU, RSQBRAC, LSQBRAC;
 terminal COLON;
 
 // utilities
-terminal PRINT, PRINTLN, READ, READINT;
+terminal PRINT, PRINTLN, READ, READINT, ILCOMMENT;
 
 // boolean
 terminal TRUE, FALSE;

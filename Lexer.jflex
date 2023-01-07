@@ -51,13 +51,15 @@ nl = [\n\r]
 
 cc = ([\b\f]|{nl})
 
-ws = {cc}|[\t]
+ws = {cc}|[\t ]
 
 alpha = [a-zA-Z_]
 
 alphanum = {alpha}|[0-9]
 
-//signedint = [+|-][0-9]+ | #x([0-9a-fA-Z]+) | #b([0|1]+)
+//signedint = [+|-][0-9]+ 
+//hexint = #x([0-9a-fA-Z]+) 
+//binint = #b([0|1]+)
 
 // generates signed integers
 // first regex only deals with numbers and signs
@@ -74,14 +76,11 @@ alphanum = {alpha}|[0-9]
 
 //character = "#c({alpha}|[^cc]|(\\n|\\t|\\b|\\f)+)" | "[#u][0-9a-fA-F]{4}" // second part is the hexadecimal and only 4 digits allowed
 
-//inlineComment = "//" [^{endOfLine}]* ~{endOfLine}?  because it could be the last line so endOfLine character wouldn't be needed
-//multilineComment = "/*" [^*] ~"*/" | "/*" "*"+ "/"
-//Comment = {inlineComment} | {multilineComment}
+inlineComment = "//.*"
+multilineComment = "/*" [^*] ~"*/" | "/*" "*"+ "/"
+Comment = {multilineComment}
 
-/*
 %state YYCOMMENT
-%state YYSIGNEDINT
-*/
 
 %%
 
@@ -91,22 +90,7 @@ alphanum = {alpha}|[0-9]
 <YYINITIAL>	{ws}	{
 			 // skip whitespace
 			}
-
-// deals with the comment state
-/*<YYINITIAL> {Comment} {
-			//the parser ignores anything here
-			}
-*/
-
-/* this deals with using comments when the state YYCOMMENT is declared
-	<YYINITIAL> "//" {yybegin(YYCOMMENT);}
-*/
-
-/* this deals with hexadecimal and binary ints
-	<YYINTINT> "#x" {yybegin(INTINT);}
-	<YYINTINT> "#b" {yybegin(INTINT);}
-*/
-
+<YYINITIAL> {inlineComment} {return new Symbol(sym.ILCOMMENT);}
 // keywords
 <YYINITIAL> "proc" {return new Symbol(sym.PROC);}
 <YYINITIAL> "def" {return new Symbol(sym.DEF);}
@@ -167,19 +151,18 @@ alphanum = {alpha}|[0-9]
 	       return new Symbol(sym.INT, 
 				 Integer.valueOf(yytext()));
 		}
-	//<YYINITIAL> {signedint} {yybegin(YYSIGNEDINT);}
-//<YYINITIAL> {signedint} {}
 
-// BOOLEAN AND LISTS 
 <YYINITIAL> "#t" {return new Symbol(sym.TRUE);}
 <YYINITIAL> "#f" {return new Symbol(sym.FALSE);}
 <YYINITIAL> "#e" {return new Symbol(sym.EMPLS);} // empty list (nil)
-<YYINITIAL> "@" {return new Symbol(sym.LSCONCAT);} // list concatenation
 
 // LOGICAL OPERATORS
 <YYINITIAL> "and" {return new Symbol(sym.AND);}
 <YYINITIAL> "or" {return new Symbol(sym.OR);}
 <YYINITIAL> "not" {return new Symbol(sym.NOT);}
+
+// LIST CONCATENATION
+<YYINITIAL> "@" {return new Symbol(sym.LSCONCAT);}
 
 // BITWISE OPERATORS
 <YYINITIAL> "&" {return new Symbol(sym.BWAND);}
@@ -191,28 +174,17 @@ alphanum = {alpha}|[0-9]
 	       return new Symbol(sym.VAR, yytext());
 		}
 
-	// the lexical state definition for comments with the lexical rules
-	/*<YYCOMMENT> {Comment} {/* overlook whatever exists here*/ 
-								yybegin(YYINITIAL)
-							;}*/
-
-
-	/*<YYSIGNEDINT>{
-		[+|-][0-9]+	{yybegin(YYINITIAL);
-					return Sym.INT, Integer.valueOf(yytext());
-					}
-		// first it gets the value then converts it if it is binary or hexadecimal
-		#x([0-9a-fA-Z]+)	{return Sym.INT, 
-							Integer.parseInt(
-								Integer.valueOf(yytext())
-							);}
-		#b([0|1]+)	{return Sym.INT, 
-					Integer.parseInt(
-						Integer.valueOf(yytext())
-					);}
-	}*/
+// covers the three representations of signed integers
+//<YYINITIAL> {signedint} {return new Symbol(sym.INT, Integer.valueOf(yytext()));}
+//<YYINITIAL> {hexint} {return new Symbol(sym.INT, Integer.valueOf(yytext(),16));}
+//<YYINITIAL> {binint} {return new Symbol(sym.INT, Integer.valueOf(yytext(),2));}
+//<YYINITIAL> {signedDouble} {sym.DOUBLE, Double.valueOf(yytext());}
 
 <YYINITIAL>    \S		{ // error situation
 	       String msg = String.format("Unrecognised Token: %s", yytext());
 	       throw new TokenException(msg);
 	       }
+
+// the lexical state definition for comments with the lexical rules
+<YYCOMMENT> {Comment} {/* overlook whatever exists here*/ 
+								yybegin(YYINITIAL);}

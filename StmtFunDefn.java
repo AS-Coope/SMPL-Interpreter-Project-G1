@@ -29,6 +29,14 @@ public class StmtFunDefn extends Statement {
         body = new ArithProgram(bod);
     }
 
+    public StmtFunDefn(ArrayList<String> listParams, Exp e)
+    {
+        //For function defs with body 
+        super("funDef",e);
+        paramList = listParams;
+        body = new ArithProgram( new StmtSequence( new Statement(e)));
+    }
+
     public String getfunName(){
         return funName;
     }
