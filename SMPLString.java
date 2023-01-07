@@ -1,12 +1,20 @@
 public class SMPLString extends SMPLObject {
     private String value;
 
+    // empty constructor for default initialization
+    public SMPLString() {
+    }
+
     public SMPLString(String value) {
         this.value = value;
     }
 
     public String getValue() {
         return value;
+    }
+
+    public void setValue(String val){
+        this.value = val;
     }
 
     @Override

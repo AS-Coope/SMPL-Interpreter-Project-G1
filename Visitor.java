@@ -24,6 +24,12 @@ public interface Visitor<S, T> {
 
     public T visitExpFunCall(ExpFunCall fc, S arg) throws VisitException;
 
+    public T visitExpPrint(ExpPrint print, S arg) throws VisitException;
+
+    public T visitExpPrintln(ExpPrintln exp, S arg) throws VisitException;
+
+    public T visitExpSize(ExpSize exp, S arg) throws VisitException;
+
     // expressions
     public T visitExpAdd(ExpAdd exp, S arg) throws VisitException;
 

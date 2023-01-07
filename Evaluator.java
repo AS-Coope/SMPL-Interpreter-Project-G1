@@ -14,7 +14,7 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 	private Class<SMPLObject> myClass;
 
 	protected Evaluator() {
-		this(Double.NaN);
+		this(new SMPLDouble(Double.NaN));
 	}
 
 	public Evaluator(SMPLObject defaultVal) {
@@ -188,39 +188,85 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 		SMPLObject val1, val2;
 		val1 = exp.getExpL().visit(this, env);
 		val2 = exp.getExpR().visit(this, env);
-		return raise(val2, val1);
+		return val2.raise(val1); // one specific to SMPLInt and one to SMPLDouble will be implemented
 	}
 
-	public SMPLObject raise(SMPLObject root1, SMPLObject root2) {
+	// print visit methods
+	public SMPLObject visitExpPrint(ExpPow exp, Environment<SMPLObject> env)
+			throws VisitException {
+		// placeholder intialization
+		SMPLObject val1 = new SMPLDouble(1.0);
+		return val1;
+	}
+
+	public SMPLObject visitExpPrintln(ExpPow exp, Environment<SMPLObject> env)
+			throws VisitException {
+		// placeholder intialization
+		SMPLObject val1 = new SMPLDouble(1.0);
+		return val1;
+	}
+
+	// logic methods
+	public SMPLObject visitExpLogic(ExpPow exp, Environment<SMPLObject> env)
+			throws VisitException {
+		// placeholder intialization
+		SMPLObject val1 = new SMPLDouble(1.0);
+		return val1;
+	}
+
+	public SMPLObject visitExpSize(ExpPow exp, Environment<SMPLObject> env)
+			throws VisitException {
+		// placeholder intialization
+		SMPLObject val1 = new SMPLDouble(1.0);
+		return val1;
+	}
+
+	public SMPLObject visitExpIf(ExpPow exp, Environment<SMPLObject> env)
+			throws VisitException {
+		// placeholder intialization
+		SMPLObject val1 = new SMPLDouble(1.0);
+		return val1;
+	}
+	/* 
+	public SMPLObject raise(SMPLObject root1, SMPLDouble root2) {
 		// power is done by right to left
 		// whatever is in the right subtree is raised to that in the left subtree
+<<<<<<< Updated upstream
 		// SMPLObject ans = 1.0;
 		SMPLObject ans = new SMPLDouble(1.0);
+=======
+		SMPLDouble ans = new SMPLDouble(1.0);
+>>>>>>> Stashed changes
 		for (int i = 0; i < root1; i++) {
-			ans = root2 * ans;
+			ans = root2.mult(ans);
 		}
 		return ans;
-	}
+	} // create a raise method then implement it in
+	*/ 
 
 	public SMPLObject visitExpLit(ExpLit exp, Environment<SMPLObject> env)
 			throws VisitException {
-		return Double.valueOf(exp.getVal());
+		SMPLDouble x = new SMPLDouble();
+		x.valueOf(exp.getVal());
+		return x;
 	}
 
-	public Double visitExpVar(ExpVar exp, Environment<Double> env)
+	public SMPLObject visitExpVar(ExpVar exp, Environment<SMPLObject> env)
 			throws VisitException {
 		return env.get(exp.getVar());
 	}
 
-	public Double visitExpLogic(ExpLogic exp, Environment<Double> env)
-			throws VisitException {
+	/* 
+	public SMPLObject visitExpLogic(ExpLogic exp, Environment<SMPLObject> env)
+			throws VisitException { 
 		boolean b = exp.operator.apply(exp.left.visit(this, env), exp.right.visit(this, env));
+		//SMPLBoolean x = new SMPLBoolean(b);
 		return b ? 1.0 : 0;
 	}
 
 	// IMPLEMENT THE VARIOUS visit methods for all the necessary operations
 
-	public Double visitExpIf(ExpIf exp, Environment<Double> env)
+	public SMPLObject visitExpIf(ExpIf exp, Environment<SMPLObject> env)
 			throws VisitException {
 		double res = exp.predicate.visit(this, env);
 		if (res == 1.0) {
@@ -232,6 +278,6 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 				return 0.0;
 			}
 		}
-	}
+	}*/
 
 }

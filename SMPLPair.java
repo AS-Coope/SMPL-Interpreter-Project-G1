@@ -3,6 +3,10 @@ public class SMPLPair extends SMPLObject {
     private SMPLObject first;
     private SMPLObject second;
 
+    // empty constructor for default initialization
+    public SMPLPair() {
+    }
+
     public SMPLPair(SMPLObject first, SMPLObject second) {
         this.first = first;
         this.second = second;

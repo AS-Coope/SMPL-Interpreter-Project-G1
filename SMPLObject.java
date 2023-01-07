@@ -16,6 +16,7 @@ public abstract class SMPLObject {
 
     }
 
+    // Arithmetic Methods
     public SMPLObject add(SMPLObject obj) throws SMPLException {
         throw new SMPLException("Method not implemented");
     }
@@ -32,14 +33,52 @@ public abstract class SMPLObject {
         throw new SMPLException("Method not implemented");
     }
 
+    public SMPLObject raise(SMPLObject obj) throws SMPLException {
+        throw new SMPLException("Method not implemented");
+    } 
+
     public SMPLObject mod(SMPLObject obj) throws SMPLException {
         throw new SMPLException("Method not implemented");
     }
+
+    // Relational Methods
+
+    // <
+    public SMPLObject lessthan(SMPLObject obj) throws SMPLException {
+        throw new SMPLException("Method not implemented");
+    }
+
+    // >
+    public SMPLObject greaterthan(SMPLObject obj) throws SMPLException {
+        throw new SMPLException("Method not implemented");
+    }
+
+    // =
+    public SMPLObject equalto(SMPLObject obj) throws SMPLException {
+        throw new SMPLException("Method not implemented");
+    }
+
+    // >=
+    public SMPLObject greateqto(SMPLObject obj) throws SMPLException {
+        throw new SMPLException("Method not implemented");
+    }
+
+    // <=
+    public SMPLObject lesseqto(SMPLObject obj) throws SMPLException {
+        throw new SMPLException("Method not implemented");
+    }
+
+    // !=
+    public SMPLObject notequal(SMPLObject obj) throws SMPLException {
+        throw new SMPLException("Method not implemented");
+    }
+    //arbitrary methods
 
     public SMPLObject substr(SMPLObject startIndex, SMPLObject endIndex) throws SMPLException {
         throw new SMPLException("Method not implemented");
     }
 
+    // pair (and subsequently) list operations
     public SMPLObject cdr(SMPLObject obj) throws SMPLException {
         throw new SMPLException("Method not implemented");
     }
@@ -56,8 +95,19 @@ public abstract class SMPLObject {
         return new SMPLBoolean(this.equals(obj));
     }
 
+<<<<<<< Updated upstream
     public SMPLBoolean isPair() {
         return new SMPLBoolean(false);
     }
 
 }
+=======
+    public SMPLObject ispair(SMPLObject obj) throws SMPLException {
+        return new SMPLBoolean(this.equals(obj));
+    }
+
+    public SMPLObject size(SMPLObject obj) throws SMPLException {
+        throw new SMPLException("Method not implemented");
+    }
+}
+>>>>>>> Stashed changes

@@ -2,12 +2,20 @@ public class SMPLBoolean extends SMPLObject {
 
     private boolean value;
 
+    // empty constructor for default initialization
+    public SMPLBoolean() {
+    }
+
     public SMPLBoolean(boolean value) {
         this.value = value;
     }
 
     public boolean getValue() {
         return value;
+    }
+
+    public void setValue(boolean val){
+        this.value = val;
     }
 
     @Override
