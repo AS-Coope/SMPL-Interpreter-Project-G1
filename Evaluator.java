@@ -68,7 +68,7 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 		Environment<SMPLObject> closingEnv = env;
 		Closure<SMPLObject> c = new Closure<SMPLObject>(fd, closingEnv);
 		env.putClosure(fd.getfunName(), c);
-		return 0D;
+		return new SMPLDouble(0D);
 	}
 
 	public SMPLObject visitExpFunCall(ExpFunCall fc, Environment<SMPLObject> env)
@@ -160,11 +160,27 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 		return obj1.isequal(obj2);
 	}
 
-	@Override
 	public SMPLObject visitExpPair(ExpPair exp, Environment<SMPLObject> env) throws VisitException {
 		SMPLObject first = exp.getFirst().visit(this, env);
 		SMPLObject second = exp.getSecond().visit(this, env);
 		return new SMPLPair(first, second);
+	}
+
+	public SMPLObject visitExpisPair(ExpisPair exp, Environment<SMPLObject> env) throws VisitException {
+		SMPLObject obj = exp.getExp().visit(this, env);
+		return obj.isPair();
+	}
+
+	public SMPLObject visitExpList(ExpList expList, Environment<SMPLObject> env) throws VisitException {
+		// create empty SMPLPairList
+		SMPLList list = new SMPLList();
+
+		// iterate through elements in expList and add them to list
+		for (Exp element : expList.getElements()) {
+			list.add(element.visit(this, env));
+		}
+
+		return list;
 	}
 
 	public SMPLObject visitExpPow(ExpPow exp, Environment<SMPLObject> env)
@@ -178,7 +194,8 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 	public SMPLObject raise(SMPLObject root1, SMPLObject root2) {
 		// power is done by right to left
 		// whatever is in the right subtree is raised to that in the left subtree
-		SMPLObject ans = 1.0;
+		// SMPLObject ans = 1.0;
+		SMPLObject ans = new SMPLDouble(1.0);
 		for (int i = 0; i < root1; i++) {
 			ans = root2 * ans;
 		}

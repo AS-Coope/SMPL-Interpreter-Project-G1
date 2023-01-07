@@ -55,4 +55,9 @@ public abstract class SMPLObject {
     public SMPLObject isequal(SMPLObject obj) throws SMPLException {
         return new SMPLBoolean(this.equals(obj));
     }
+
+    public SMPLBoolean isPair() {
+        return new SMPLBoolean(false);
+    }
+
 }

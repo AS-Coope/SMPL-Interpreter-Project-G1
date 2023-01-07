@@ -53,4 +53,8 @@ public interface Visitor<S, T> {
 
     public T visitExpPair(ExpPair exp, S arg) throws VisitException;
 
+    public T visitExpisPair(ExpisPair exp, S arg) throws VisitException;
+
+    public T visitExpList(ExpList exp, S arg) throws VisitException;
+
 }
