@@ -1,5 +1,5 @@
 public class SMPLList extends SMPLObject {
-<<<<<<< Updated upstream
+
     private SMPLPair head;
     private SMPLList tail;
     private static SMPLList NIL = new SMPLList();
@@ -51,7 +51,6 @@ public class SMPLList extends SMPLObject {
         }
     }
 }
-=======
+
     
-}
->>>>>>> Stashed changes
+
