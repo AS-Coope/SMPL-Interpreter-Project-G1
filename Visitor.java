@@ -30,6 +30,8 @@ public interface Visitor<S, T> {
 
     public T visitExpSize(ExpSize exp, S arg) throws VisitException;
 
+    //public T visitExpDef(ExpDef exp, S arg) throws VisitException;
+
     // expressions
     public T visitExpAdd(ExpAdd exp, S arg) throws VisitException;
 

@@ -127,7 +127,7 @@ paramList ::= paramList:pl COMMA VAR:e {:pl.add(e); RESULT = pl;:} | VAR:e {:Arr
 
 paramListE ::= paramList:pl {:RESULT = pl;:} | empty:e {:ArrayList<String> var = new ArrayList<String>(); RESULT = var;:};
 
-definition ::= VAR:v ASSIGN expression:e SEMI {:
+definition ::= DEF VAR:v expression:e SEMI {:
 		   RESULT = new StmtDefinition(v, e);
 		:};
 

@@ -140,4 +140,9 @@ public class SMPLInt extends SMPLObject {
             throw new SMPLException("Cannot perform not equal to operation on non-double values");
         }
     }
+
+    @Override
+    public String toString(){
+        return String.valueOf(value);
+    }
 }

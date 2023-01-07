@@ -44,4 +44,9 @@ public class SMPLPair extends SMPLObject {
         }
     }
 
+    @Override
+    public SMPLObject isPair() throws SMPLException {
+        return new SMPLBoolean(true);
+    }
+
 }

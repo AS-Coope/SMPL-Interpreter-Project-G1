@@ -68,7 +68,7 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 		Environment<SMPLObject> closingEnv = env;
 		Closure<SMPLObject> c = new Closure<SMPLObject>(fd, closingEnv);
 		env.putClosure(fd.getfunName(), c);
-		return new SMPLDouble(0D);
+		return defaultValue;
 	}
 
 	public SMPLObject visitExpFunCall(ExpFunCall fc, Environment<SMPLObject> env)
@@ -171,6 +171,12 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 		return obj.isPair();
 	}
 
+	/*public SMPLObject visitExpDef(ExpDef exp, Environment<SMPLObject> env) throws VisitException {
+		SMPLObject obj = exp.getExp().visit(this, env);
+		//return obj.isPair();
+		return new SMPLDouble(2.0);
+	}*/
+
 	public SMPLObject visitExpList(ExpList expList, Environment<SMPLObject> env) throws VisitException {
 		// create empty SMPLPairList
 		SMPLList list = new SMPLList();
@@ -192,14 +198,14 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 	}
 
 	// print visit methods
-	public SMPLObject visitExpPrint(ExpPow exp, Environment<SMPLObject> env)
+	public SMPLObject visitExpPrint(ExpPrint exp, Environment<SMPLObject> env)
 			throws VisitException {
 		// placeholder intialization
 		SMPLObject val1 = new SMPLDouble(1.0);
 		return val1;
 	}
 
-	public SMPLObject visitExpPrintln(ExpPow exp, Environment<SMPLObject> env)
+	public SMPLObject visitExpPrintln(ExpPrintln exp, Environment<SMPLObject> env)
 			throws VisitException {
 		// placeholder intialization
 		SMPLObject val1 = new SMPLDouble(1.0);
@@ -207,21 +213,21 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 	}
 
 	// logic methods
-	public SMPLObject visitExpLogic(ExpPow exp, Environment<SMPLObject> env)
+	public SMPLObject visitExpLogic(ExpLogic exp, Environment<SMPLObject> env)
 			throws VisitException {
 		// placeholder intialization
 		SMPLObject val1 = new SMPLDouble(1.0);
 		return val1;
 	}
 
-	public SMPLObject visitExpSize(ExpPow exp, Environment<SMPLObject> env)
+	public SMPLObject visitExpSize(ExpSize exp, Environment<SMPLObject> env)
 			throws VisitException {
 		// placeholder intialization
 		SMPLObject val1 = new SMPLDouble(1.0);
 		return val1;
 	}
 
-	public SMPLObject visitExpIf(ExpPow exp, Environment<SMPLObject> env)
+	public SMPLObject visitExpIf(ExpIf exp, Environment<SMPLObject> env)
 			throws VisitException {
 		// placeholder intialization
 		SMPLObject val1 = new SMPLDouble(1.0);
@@ -231,12 +237,8 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 	public SMPLObject raise(SMPLObject root1, SMPLDouble root2) {
 		// power is done by right to left
 		// whatever is in the right subtree is raised to that in the left subtree
-<<<<<<< Updated upstream
 		// SMPLObject ans = 1.0;
 		SMPLObject ans = new SMPLDouble(1.0);
-=======
-		SMPLDouble ans = new SMPLDouble(1.0);
->>>>>>> Stashed changes
 		for (int i = 0; i < root1; i++) {
 			ans = root2.mult(ans);
 		}
@@ -246,9 +248,7 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 
 	public SMPLObject visitExpLit(ExpLit exp, Environment<SMPLObject> env)
 			throws VisitException {
-		SMPLDouble x = new SMPLDouble();
-		x.valueOf(exp.getVal());
-		return x;
+		return exp.getVal();
 	}
 
 	public SMPLObject visitExpVar(ExpVar exp, Environment<SMPLObject> env)
