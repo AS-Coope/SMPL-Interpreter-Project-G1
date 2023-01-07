@@ -95,6 +95,14 @@ public abstract class SMPLObject {
         return new SMPLBoolean(this.equals(obj));
     }
 
+    public SMPLObject isPair(SMPLObject obj) throws SMPLException {
+        return new SMPLBoolean(this.equals(obj));
+    }
+
+    public SMPLObject size(SMPLObject obj) throws SMPLException {
+        throw new SMPLException("Method not implemented");
+    }
+
 <<<<<<< Updated upstream
     public SMPLBoolean isPair() {
         return new SMPLBoolean(false);
