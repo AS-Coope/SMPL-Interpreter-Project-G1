@@ -41,6 +41,16 @@ public class SMPLList extends SMPLObject {
     }
 
     public SMPLPair constructListOfPairs() {
+        SMPLPair current = new SMPLPair(elements.get(0), new SMPLString("#e"));
+        SMPLPair result = current;
+        for (int i = 1; i < elements.size(); i++) {
+            current.setSecond(new SMPLPair(elements.get(i), new SMPLString("#e")));
+            current = (SMPLPair) current.getSecond();
+        }
+        return result;
+    }
+    /* 
+    public SMPLPair constructListOfPairs() {
         SMPLPair current = new SMPLPair(elements.get(0), new SMPLPair());
         SMPLPair result = current;
         for (int i = 1; i < elements.size(); i++) {
@@ -48,5 +58,19 @@ public class SMPLList extends SMPLObject {
             current = (SMPLPair) current.getSecond();
         }
         return result;
+    }*/
+    @Override
+    public SMPLObject iseqv(SMPLObject obj) throws SMPLException {
+        if (obj instanceof SMPLList) {
+            SMPLList other = (SMPLList) obj;
+
+            return new SMPLBoolean(this.equals(other));
+            /* 
+            SMPLBoolean firstEqual = (SMPLBoolean) this.first.iseqv(other.getFirst());
+            SMPLBoolean secondEqual = (SMPLBoolean) this.second.iseqv(other.getSecond());
+            return new SMPLBoolean(firstEqual.getValue() && secondEqual.getValue());*/
+        } else {
+            return new SMPLBoolean(false);
+        }
     }
 }

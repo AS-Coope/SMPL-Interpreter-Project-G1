@@ -22,6 +22,7 @@ public class SMPLBoolean extends SMPLObject {
     public SMPLObject iseqv(SMPLObject obj) throws SMPLException {
         if (obj instanceof SMPLBoolean) {
             SMPLBoolean other = (SMPLBoolean) obj;
+            //return new SMPLBoolean(this.equals(other));
             return new SMPLBoolean(this.value == other.getValue());
         } else {
             return new SMPLBoolean(false);

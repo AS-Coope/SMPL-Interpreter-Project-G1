@@ -190,6 +190,8 @@ pow ::= INT:ilit {: RESULT = new ExpLit(ilit); :} |
 	    VAR:var {: RESULT = new ExpVar(var); :} |
 	    LPAREN expression:e RPAREN {: RESULT = e; :} | 
 		ISEQV LPAREN expression:e COMMA expression:j RPAREN {:RESULT = new ExpEqv(e, j);:} |
+		LIST LPAREN LSQBRAC argListE:al RSQBRAC RPAREN {:RESULT = new ExpList(al);:} |
+		LSQBRAC argListE:al RSQBRAC {:RESULT = new ExpList(al);:} |
 		PAIR LPAREN expression:c COMMA expression:g RPAREN {:RESULT = new ExpPair(c,g);:} |
 		CAR LPAREN expression:p RPAREN {:RESULT = new ExpCar(p);:} |
 		CDR LPAREN expression:p RPAREN {:RESULT = new ExpCdr(p);:} | 

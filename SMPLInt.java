@@ -142,6 +142,22 @@ public class SMPLInt extends SMPLObject {
     }
 
     @Override
+    public SMPLObject iseqv(SMPLObject obj) throws SMPLException {
+        if (obj instanceof SMPLInt) {
+            SMPLInt other = (SMPLInt) obj;
+
+            //return new SMPLBoolean(this.equals(other));
+            return new SMPLBoolean(this.value == other.getValue());
+            /* 
+            SMPLBoolean firstEqual = (SMPLBoolean) this.first.iseqv(other.getFirst());
+            SMPLBoolean secondEqual = (SMPLBoolean) this.second.iseqv(other.getSecond());
+            return new SMPLBoolean(firstEqual.getValue() && secondEqual.getValue());*/
+        } else {
+            return new SMPLBoolean(false);
+        }
+    }
+
+    @Override
     public String toString(){
         return String.valueOf(value);
     }
