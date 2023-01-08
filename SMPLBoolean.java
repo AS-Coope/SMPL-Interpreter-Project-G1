@@ -37,4 +37,12 @@ public class SMPLBoolean extends SMPLObject {
             return new SMPLBoolean(false);
         }
     }
+
+    @Override
+    public String toString(){
+        if (value == true){
+            return "#t";
+        }
+        return "#f";
+    }
 }

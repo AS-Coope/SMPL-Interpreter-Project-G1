@@ -182,7 +182,7 @@ Comment = {multilineComment}
 //<YYINITIAL> {binint} {return new Symbol(sym.INT, Integer.valueOf(yytext(),2));}
 //<YYINITIAL> {signedDouble} {sym.DOUBLE, Double.yytext();}
 <YYINITIAL>  {signedDouble} {
-			return new Symbol(sym.DOUBLE, new Double(yytext()));
+			return new Symbol(sym.DOUBLE, Double.valueOf(yytext()));
 			}
 
 <YYINITIAL>    \S		{ // error situation

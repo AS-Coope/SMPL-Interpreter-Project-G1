@@ -54,9 +54,6 @@ terminal COLON;
 // utilities
 terminal PRINT, PRINTLN, READ, READINT;
 
-// boolean
-terminal TRUE, FALSE;
-
 // arithmetic operators
 terminal PLUS, MINUS, MUL, DIV, MOD, POW, ASSIGN;
 
@@ -77,7 +74,8 @@ terminal Integer INT;
 terminal String VAR;
 terminal Cmp CMP;  
 terminal Double DOUBLE; // allows a double passed into the command line to be evaluated
-terminal String STRING; // allows a string passed into the command line to be evaluated  
+terminal String STRING; // allows a string passed into the command line to be evaluated
+terminal Boolean TRUE, FALSE;  
 
 /* Non terminals */
 non terminal ArithProgram program;
@@ -187,8 +185,14 @@ argListE ::= argList:pl {:RESULT = pl;:} | empty:e {:RESULT = new ArrayList<Exp>
 pow ::= INT:ilit {: RESULT = new ExpLit(ilit); :} |
 		DOUBLE:dlit {: RESULT = new ExpLit(dlit); :} |
 		STRING:slit {: RESULT = new ExpLit(slit); :} |
+		TRUE:tlit {:RESULT = new ExpLit(tlit); :} |
+		FALSE: flit {:RESULT = new ExpLit(flit); :} |
 	    VAR:var {: RESULT = new ExpVar(var); :} |
 	    LPAREN expression:e RPAREN {: RESULT = e; :} | 
-		PAIR LPAREN expression:c COMMA expression:g RPAREN {:RESULT = new ExpPair(c,g);:} | funCall:fc {:RESULT = fc;:};
+		ISEQV LPAREN expression:e COMMA expression:j RPAREN {:RESULT = new ExpEqv(e, j);:} |
+		PAIR LPAREN expression:c COMMA expression:g RPAREN {:RESULT = new ExpPair(c,g);:} |
+		CAR LPAREN expression:p RPAREN {:RESULT = new ExpCar(p);:} |
+		CDR LPAREN expression:p RPAREN {:RESULT = new ExpCdr(p);:} | 
+		ISPAIR LPAREN expression:p RPAREN {:RESULT = new ExpisPair(p);:} | funCall:fc {:RESULT = fc;:};
 
 empty ::= ;

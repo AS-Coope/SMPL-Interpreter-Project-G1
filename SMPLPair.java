@@ -24,9 +24,12 @@ public class SMPLPair extends SMPLObject {
     public SMPLObject iseqv(SMPLObject obj) throws SMPLException {
         if (obj instanceof SMPLPair) {
             SMPLPair other = (SMPLPair) obj;
+
+            return new SMPLBoolean(this.equals(other));
+            /* 
             SMPLBoolean firstEqual = (SMPLBoolean) this.first.iseqv(other.getFirst());
             SMPLBoolean secondEqual = (SMPLBoolean) this.second.iseqv(other.getSecond());
-            return new SMPLBoolean(firstEqual.getValue() && secondEqual.getValue());
+            return new SMPLBoolean(firstEqual.getValue() && secondEqual.getValue());*/
         } else {
             return new SMPLBoolean(false);
         }

@@ -17,6 +17,11 @@ public class ExpLit extends Exp {
         val = new SMPLString(v);
     }
 
+    public ExpLit(Boolean v){
+        super(v.toString());
+        val = new SMPLBoolean(v);
+    }
+
     public SMPLObject getVal() {
 	    return val;
     }
