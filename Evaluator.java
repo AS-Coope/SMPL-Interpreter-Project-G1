@@ -75,6 +75,32 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 		}
 	}
 
+	public SMPLObject visitExpSeq(ExpSeq exp, Environment<SMPLObject> env) throws VisitException {
+		List<Exp> expressions = exp.getExpressions();
+		SMPLObject result = new SMPLInt(0); // default value for an empty sequence
+		for (Exp e : expressions) {
+			result = e.visit(this, env);
+		}
+		return result;
+	}
+
+	public SMPLObject visitExpLet(ExpLet exp, Environment<SMPLObject> env) throws VisitException {
+		ArrayList<Binding> bindings = exp.getBindings();
+		Exp body = exp.getBodyExp();
+
+		// create a new environment extended by the bindings
+		for (Binding b : bindings) {
+			String id = b.getId();
+			Exp value = b.getValueExp();
+			SMPLObject evalValue = value.visit(this, env);
+			env.put(id, evalValue);
+		}
+
+		// evaluate the body in the extended environment
+		SMPLObject result = body.visit(this, env);
+		return result;
+	}
+
 	public SMPLObject visitStmtFunDefn(StmtFunDefn fd, Environment<SMPLObject> env)
 			throws VisitException {
 		Environment<SMPLObject> closingEnv = env;

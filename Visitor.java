@@ -69,4 +69,8 @@ public interface Visitor<S, T> {
 
     public T visitExpList(ExpList exp, S arg) throws VisitException;
 
+    public T visitExpSeq(ExpSeq exp, S arg) throws VisitException;
+
+    public T visitExpLet(ExpLet exp, S arg) throws VisitException;
+
 }
