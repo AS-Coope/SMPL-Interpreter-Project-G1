@@ -178,7 +178,7 @@ Comment = {multilineComment}
 //<YYINITIAL> {signedint} {return new Symbol(sym.INT, Integer.valueOf(yytext()));}
 //<YYINITIAL> {hexint} {return new Symbol(sym.INT, Integer.valueOf(yytext(),16));}
 //<YYINITIAL> {binint} {return new Symbol(sym.INT, Integer.valueOf(yytext(),2));}
-//<YYINITIAL> {signedDouble} {sym.DOUBLE, Double.valueOf(yytext());}
+//<YYINITIAL> {signedDouble} {sym.DOUBLE, Double.yytext();}
 
 <YYINITIAL>    \S		{ // error situation
 	       String msg = String.format("Unrecognised Token: %s", yytext());

@@ -18,7 +18,6 @@ public class ExpIf extends Exp {
         alternative = alt;
     }
 
-
     @Override
     public <S, T> T visit(Visitor<S, T> v, S arg) throws VisitException {
         

@@ -1,14 +1,19 @@
 public class ExpLit extends Exp {
 
-    int val;
+    SMPLObject val;
 
     public ExpLit(Integer v) {
 	super(v.toString());
-	val = v.intValue();
+	val = new SMPLInt(v);
     }
 
-    public int getVal() {
-	return val;
+    public ExpLit(Double v){
+        super(v.toString());
+	    val = new SMPLDouble(v);
+    }
+
+    public SMPLObject getVal() {
+	    return val;
     }
 
     public <S, T> T visit(Visitor<S, T> v, S arg) throws VisitException {
@@ -16,7 +21,7 @@ public class ExpLit extends Exp {
     }
 
     public String toString() {
-	return Integer.toString(val);
+	return val.toString();
     }
 }
 
