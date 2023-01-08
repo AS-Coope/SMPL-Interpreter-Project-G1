@@ -59,4 +59,9 @@ public class SMPLPair extends SMPLObject {
         return this.second;
     }
 
+    @Override
+    public String toString(){
+        return "pair(" + first + ", " + second + ")";
+    }
+
 }

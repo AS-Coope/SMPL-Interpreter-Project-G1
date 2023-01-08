@@ -52,7 +52,7 @@ terminal LBRACE, RBRACE, COMMA, EQU, RSQBRAC, LSQBRAC;
 terminal COLON;
 
 // utilities
-terminal PRINT, PRINTLN, READ, READINT, ILCOMMENT;
+terminal PRINT, PRINTLN, READ, READINT;
 
 // boolean
 terminal TRUE, FALSE;
@@ -69,16 +69,22 @@ terminal BWAND, BWOR, BWNOT;
 // list operations
 terminal LIST, LSCONCAT, EMPLS;
 
+// comment
+terminal INLCOM;
+
 // terminals with values
 terminal Integer INT;
 terminal String VAR;
-terminal Cmp CMP;     
+terminal Cmp CMP;  
+terminal Double DOUBLE; // allows a double passed into the command line to be evaluated
+terminal String STRING; // allows a string passed into the command line to be evaluated  
 
 /* Non terminals */
 non terminal ArithProgram program;
 non terminal StmtSequence stmtList;
 non terminal Statement stmt;
 non terminal StmtDefinition definition;
+non terminal StmtDefinition assignment; // assigning an expression to an identifier
 
 /* ** Fix these declarations ** */
 non terminal StmtFunDefn funDefn;
@@ -94,10 +100,15 @@ non terminal ExpLogic LogExp;
 
 /* **** */
 
+non terminal ExpPair pair;
+non terminal Exp eqv;
+non terminal Exp equal;
+non terminal Exp vec;
 non terminal Exp expression;
 non terminal Exp term;
 non terminal Exp factor;
 non terminal Exp pow;
+non terminal Exp comment;
 non terminal empty;
 
 /* Grammar rules */
@@ -112,7 +123,7 @@ stmtList ::= stmtList:lst stmt:s {:
 		RESULT = new StmtSequence(s);
 		:};
 
-stmt ::= definition:d {: RESULT = d; :} |
+stmt ::= definition:d {: RESULT = d; :} | assignment:a {:RESULT = a; :} |
 	 expression:e {: RESULT = new Statement(e); :} SEMI | funDefn:fd {:RESULT = fd;:};
 
 /*If grammer*/
@@ -123,17 +134,28 @@ LogExp ::= expression:l CMP:c expression:r {:RESULT = new ExpLogic(l,r,c);:} | e
 funDefn ::= FUN VAR:v LPAREN paramListE:params RPAREN EQU expression:e SEMI {:RESULT = new StmtFunDefn(v,params,e); :}|  
 FUN VAR:v LPAREN paramListE:params RPAREN EQU LBRACE stmtList:s RBRACE {:RESULT = new StmtFunDefn(v,params,s); :};  /* complete this */
 
+//pair ::= PAIR LPAREN expression:c COMMA expression:g RPAREN SEMI{:System.out.println(5);:};
+
 paramList ::= paramList:pl COMMA VAR:e {:pl.add(e); RESULT = pl;:} | VAR:e {:ArrayList<String> var = new ArrayList<String>(); var.add(e); RESULT = var;:};  
 
 paramListE ::= paramList:pl {:RESULT = pl;:} | empty:e {:ArrayList<String> var = new ArrayList<String>(); RESULT = var;:};
 
-definition ::= DEF VAR:v expression:e SEMI {:
+assignment ::= VAR:v ASSIGN expression:e SEMI {:
+			RESULT = new StmtDefinition(v, e);
+		:};
+
+definition ::= DEF VAR:v expression:e SEMI{:
 		   RESULT = new StmtDefinition(v, e);
 		:};
 
-//pair ::= LBRACE expression:c COMMA expression:g RBRACE {:RESULT = ;:}
 
-//eqv? ::= LBRACE expression:e COMMA expression:j RBRACE {:RESULT = new ExpIf();:} // checking the equivalence
+
+//eqv ::= ISEQV LPAREN expression:e COMMA expression:j RPAREN {:RESULT = new ExpEqv(e, j);:}; // checking the equivalence
+
+//equal ::= ISEQUAL LPAREN expression:e COMMA expression:j RPAREN {:RESULT = new ExpEqual(e, j);:};
+//vec ::= LSQBRAC COLON expression:e COLON RSQBRAC {:RESULT = new SMPLVector(e);:} // e is a list of expressions
+
+//comment ::= INLCOM {:RESULT = null;:}
 
 expression ::= 	expression:e PLUS term:t {:
 			RESULT = new ExpAdd(e, t); :} |
@@ -163,7 +185,10 @@ argListE ::= argList:pl {:RESULT = pl;:} | empty:e {:RESULT = new ArrayList<Exp>
 
 
 pow ::= INT:ilit {: RESULT = new ExpLit(ilit); :} |
-	   VAR:var {: RESULT = new ExpVar(var); :} |
-	   LPAREN expression:e RPAREN {: RESULT = e; :}	| funCall:fc {:RESULT = fc;:};
+		DOUBLE:dlit {: RESULT = new ExpLit(dlit); :} |
+		STRING:slit {: RESULT = new ExpLit(slit); :} |
+	    VAR:var {: RESULT = new ExpVar(var); :} |
+	    LPAREN expression:e RPAREN {: RESULT = e; :} | 
+		PAIR LPAREN expression:c COMMA expression:g RPAREN {:RESULT = new ExpPair(c,g);:} | funCall:fc {:RESULT = fc;:};
 
 empty ::= ;

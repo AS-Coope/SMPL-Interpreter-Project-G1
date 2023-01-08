@@ -67,6 +67,7 @@ alphanum = {alpha}|[0-9]
 // third regex deals with binary
 
 //signedDouble = ([+|-][0-9]+[.][0-9]*) | ([+|-][0-9]*[.]?[0-9]+) 
+signedDouble = ([0-9]+\.[0.9]+)|(\.[0.9]+)|([0-9]+\.)
 
 // might need to have {n,m} syntax given 32 ends at some point
 // the first regex allows at least 1 digit before the decimal while none or many after the decimal
@@ -76,7 +77,7 @@ alphanum = {alpha}|[0-9]
 
 //character = "#c({alpha}|[^cc]|(\\n|\\t|\\b|\\f)+)" | "[#u][0-9a-fA-F]{4}" // second part is the hexadecimal and only 4 digits allowed
 
-inlineComment = "//.*"
+inlineComment = "//" {nl}
 multilineComment = "/*" [^*] ~"*/" | "/*" "*"+ "/"
 Comment = {multilineComment}
 
@@ -91,6 +92,7 @@ Comment = {multilineComment}
 			 // skip whitespace
 			}
 <YYINITIAL> {inlineComment} { }
+<YYINITIAL> "//" {return new Symbol(sym.INLCOM);}
 // keywords
 <YYINITIAL> "proc" {return new Symbol(sym.PROC);}
 <YYINITIAL> "def" {return new Symbol(sym.DEF);}
@@ -179,6 +181,9 @@ Comment = {multilineComment}
 //<YYINITIAL> {hexint} {return new Symbol(sym.INT, Integer.valueOf(yytext(),16));}
 //<YYINITIAL> {binint} {return new Symbol(sym.INT, Integer.valueOf(yytext(),2));}
 //<YYINITIAL> {signedDouble} {sym.DOUBLE, Double.yytext();}
+<YYINITIAL>  {signedDouble} {
+			return new Symbol(sym.DOUBLE, new Double(yytext()));
+			}
 
 <YYINITIAL>    \S		{ // error situation
 	       String msg = String.format("Unrecognised Token: %s", yytext());

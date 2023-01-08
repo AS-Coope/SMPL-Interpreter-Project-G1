@@ -12,9 +12,15 @@ public abstract class SMPLObject {
      * signifying that
      * this Type as not having a need for that method
      */
+    //SMPLObject value;
     public SMPLObject() {
 
     }
+
+    /* 
+    public SMPLObject(SMPLObject val){
+        this.value = val;
+    }*/
 
     // Arithmetic Methods
     public SMPLObject add(SMPLObject obj) throws SMPLException {

@@ -12,6 +12,11 @@ public class ExpLit extends Exp {
 	    val = new SMPLDouble(v);
     }
 
+    public ExpLit(String v){
+        super(v);
+        val = new SMPLString(v);
+    }
+
     public SMPLObject getVal() {
 	    return val;
     }

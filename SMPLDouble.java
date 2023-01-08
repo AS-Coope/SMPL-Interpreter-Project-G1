@@ -54,6 +54,7 @@ public class SMPLDouble extends SMPLObject {
     // does calculations for both int and doubles
     @Override
     public SMPLObject mult(SMPLObject obj) throws SMPLException {
+
         if (obj instanceof SMPLDouble) {
             return new SMPLDouble(value * ((SMPLDouble) obj).getValue());
         }  else if (obj instanceof SMPLInt){
