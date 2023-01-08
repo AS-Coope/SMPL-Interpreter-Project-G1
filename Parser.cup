@@ -102,6 +102,9 @@ non terminal ExpPair pair;
 non terminal Exp eqv;
 non terminal Exp equal;
 non terminal Exp vec;
+non terminal Exp noIfExp;
+non terminal Exp ifTerm;
+//non terminal Exp randTop;
 non terminal Exp expression;
 non terminal Exp term;
 non terminal Exp factor;
@@ -125,10 +128,14 @@ stmt ::= definition:d {: RESULT = d; :} | assignment:a {:RESULT = a; :} |
 	 expression:e {: RESULT = new Statement(e); :} SEMI | funDefn:fd {:RESULT = fd;:};
 
 /*If grammer*/
+/*
 StmtIf ::= IF LogExp:le COLON expression:consqt END {:RESULT = new ExpIf(le,consqt);:};
 StmtIfElse ::= IF LogExp:le COLON expression:consqt ELSE expression:alt END {:RESULT = new ExpIf(le,consqt,alt);:};
 LogExp ::= expression:l CMP:c expression:r {:RESULT = new ExpLogic(l,r,c);:} | expression:l EQU expression:r {:RESULT = new ExpLogic(l,r,Cmp.EQ);:};
-
+/*
+StmtIf ::= IF ifTerm:pred THEN expression:consqt {:RESULT = new ExpIf(pred,consqt);:};
+StmtIfElse ::= IF ifTerm:pred THEN expression:consqt ELSE expression:alt {:RESULT = new ExpIf(pred,consqt,alt);:};
+*/
 funDefn ::= FUN VAR:v LPAREN paramListE:params RPAREN EQU expression:e SEMI {:RESULT = new StmtFunDefn(v,params,e); :}|  
 FUN VAR:v LPAREN paramListE:params RPAREN EQU LBRACE stmtList:s RBRACE {:RESULT = new StmtFunDefn(v,params,s); :};  /* complete this */
 
@@ -154,12 +161,12 @@ definition ::= DEF VAR:v expression:e SEMI{:
 //vec ::= LSQBRAC COLON expression:e COLON RSQBRAC {:RESULT = new SMPLVector(e);:} // e is a list of expressions
 
 //comment ::= INLCOM {:RESULT = null;:}
-
+			
 expression ::= 	expression:e PLUS term:t {:
 			RESULT = new ExpAdd(e, t); :} |
 		expression:e MINUS term:t {:
-			RESULT = new ExpSub(e, t); :} |
-		term:t {: RESULT = t; :} | StmtIf:t {:RESULT = t;:} | StmtIfElse:e {:RESULT = e;:};
+			RESULT = new ExpSub(e, t); :} | 
+		term:t {: RESULT = t; :}; //| StmtIf:t {:RESULT = t;:} | StmtIfElse:e {:RESULT = e;:};
 
 term ::= term:t MUL factor:f {:
 		RESULT = new ExpMul(t, f); :} |

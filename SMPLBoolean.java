@@ -40,6 +40,11 @@ public class SMPLBoolean extends SMPLObject {
     }
 
     @Override
+    public SMPLObject isTrue() {
+        return this;
+    }
+
+    @Override
     public String toString(){
         if (value == true){
             return "#t";

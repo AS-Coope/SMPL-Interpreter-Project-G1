@@ -89,6 +89,10 @@ public abstract class SMPLObject {
         throw new SMPLException("Method not implemented");
     }
 
+    public SMPLObject isTrue() throws SMPLException {
+        throw new SMPLException("Method not implemented");
+    }
+
     // pair (and subsequently) list operations
     public SMPLObject cdr() throws SMPLException {
         throw new SMPLException("Method not implemented");
