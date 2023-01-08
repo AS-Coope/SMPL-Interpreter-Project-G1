@@ -1,56 +1,52 @@
+import java.util.ArrayList;
+
 public class SMPLList extends SMPLObject {
 
-    private SMPLPair head;
-    private SMPLList tail;
-    private static SMPLList NIL = new SMPLList();
+    ArrayList<SMPLObject> elements;
 
-    public SMPLList() {
-        super();
-        head = null;
-        tail = null;
+    public SMPLList(ArrayList<SMPLObject> elements) {
+        this.elements = elements;
     }
 
-    public SMPLList(SMPLPair head, SMPLList tail) {
-        this.head = head;
-        this.tail = tail;
-    }
-
-    public SMPLPair getHead() {
-        return head;
-    }
-
-    public SMPLList getTail() {
-        return tail;
-    }
-
-    public static SMPLList list(SMPLObject... elements) {
-        SMPLList list = NIL;
-        for (int i = elements.length - 1; i >= 0; i--) {
-            list = new SMPLList(new SMPLPair(elements[i], list), null);
-        }
-        return list;
+    public ArrayList<SMPLObject> getElements() {
+        return elements;
     }
 
     @Override
-    public SMPLObject iseqv(SMPLObject obj) throws SMPLException {
-        if (obj instanceof SMPLList) {
-            SMPLList other = (SMPLList) obj;
-            return new SMPLBoolean(this == other);
-        } else {
-            return new SMPLBoolean(false);
-        }
+    public SMPLObject isPair() throws SMPLException {
+        return new SMPLBoolean(false);
     }
 
     @Override
-    public SMPLObject isequal(SMPLObject obj) throws SMPLException {
-        if (obj instanceof SMPLList) {
-            SMPLList other = (SMPLList) obj;
-            return new SMPLBoolean(this.equals(other));
-        } else {
-            return new SMPLBoolean(false);
+    public SMPLObject car() throws SMPLException {
+        throw new SMPLException("Error: Attempted to get the car of a non-pair object.");
+    }
+
+    @Override
+    public SMPLObject cdr() throws SMPLException {
+        throw new SMPLException("Error: Attempted to get the cdr of a non-pair object.");
+    }
+
+    @Override
+    public String toString() {
+        String result = "[";
+        for (int i = 0; i < elements.size(); i++) {
+            result += elements.get(i);
+            if (i < elements.size() - 1) {
+                result += ", ";
+            }
         }
+        result += "]";
+        return result;
+    }
+
+    public SMPLPair constructListOfPairs() {
+        SMPLPair current = new SMPLPair(elements.get(0), new SMPLPair());
+        SMPLPair result = current;
+        for (int i = 1; i < elements.size(); i++) {
+            current.setSecond(new SMPLPair(elements.get(i), new SMPLPair()));
+            current = (SMPLPair) current.getSecond();
+        }
+        return result;
     }
 }
-
-    
-

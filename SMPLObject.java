@@ -12,15 +12,16 @@ public abstract class SMPLObject {
      * signifying that
      * this Type as not having a need for that method
      */
-    //SMPLObject value;
+    // SMPLObject value;
     public SMPLObject() {
 
     }
 
-    /* 
-    public SMPLObject(SMPLObject val){
-        this.value = val;
-    }*/
+    /*
+     * public SMPLObject(SMPLObject val){
+     * this.value = val;
+     * }
+     */
 
     // Arithmetic Methods
     public SMPLObject add(SMPLObject obj) throws SMPLException {
@@ -81,6 +82,10 @@ public abstract class SMPLObject {
     // arbitrary methods
 
     public SMPLObject substr(SMPLObject startIndex, SMPLObject endIndex) throws SMPLException {
+        throw new SMPLException("Method not implemented");
+    }
+
+    public SMPLObject constructListOfPairs() throws SMPLException {
         throw new SMPLException("Method not implemented");
     }
 
