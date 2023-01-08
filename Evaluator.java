@@ -181,6 +181,15 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 		return obj.isPair();
 	}
 
+	public SMPLObject visitExpList(ExpList exp, Environment<SMPLObject> env) throws VisitException {
+		ArrayList<SMPLObject> evaledElements = new ArrayList<SMPLObject>();
+		for (Exp element : exp.getElements()) {
+			evaledElements.add(element.visit(this, env));
+		}
+		SMPLList list = new SMPLList(evaledElements);
+		return list.constructListOfPairs();
+	}
+
 	/*
 	 * public SMPLObject visitExpDef(ExpDef exp, Environment<SMPLObject> env) throws
 	 * VisitException {
@@ -189,18 +198,6 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 	 * return new SMPLDouble(2.0);
 	 * }
 	 */
-
-	public SMPLObject visitExpList(ExpList expList, Environment<SMPLObject> env) throws VisitException {
-		// create empty SMPLPairList
-		SMPLList list = new SMPLList();
-
-		// iterate through elements in expList and add them to list
-		for (Exp element : expList.getElements()) {
-			list.add(element.visit(this, env));
-		}
-
-		return list;
-	}
 
 	public SMPLObject visitExpPow(ExpPow exp, Environment<SMPLObject> env)
 			throws VisitException {

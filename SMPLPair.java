@@ -54,13 +54,17 @@ public class SMPLPair extends SMPLObject {
         return this.first;
     }
 
+    public void setSecond(SMPLObject second) {
+        this.second = second;
+    }
+
     @Override
     public SMPLObject cdr() throws SMPLException {
         return this.second;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "pair(" + first + ", " + second + ")";
     }
 

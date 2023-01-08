@@ -1,13 +1,15 @@
+import java.util.ArrayList;
+
 public class ExpList extends Exp {
 
-    Exp[] elements;
+    ArrayList<Exp> elements;
 
-    public ExpList(Exp... elements) {
+    public ExpList(ArrayList<Exp> elements) {
         super("list", elements);
         this.elements = elements;
     }
 
-    public Exp[] getElements() {
+    public ArrayList<Exp> getElements() {
         return elements;
     }
 
@@ -17,14 +19,14 @@ public class ExpList extends Exp {
 
     @Override
     public String toString() {
-        String result = "list(";
-        for (int i = 0; i < elements.length; i++) {
-            result += elements[i];
-            if (i < elements.length - 1) {
-                result += ", ";
-            }
-        }
-        result += ")";
-        return result;
+        // String result = "list(";
+        // for (int i = 0; i < elements.length; i++) {
+        // result += elements[i];
+        // if (i < elements.length - 1) {
+        // result += ", ";
+        // }
+        // }
+        // result += ")";
+        return "result";
     }
 }
