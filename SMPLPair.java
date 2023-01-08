@@ -49,4 +49,14 @@ public class SMPLPair extends SMPLObject {
         return new SMPLBoolean(true);
     }
 
+    @Override
+    public SMPLObject car() throws SMPLException {
+        return this.first;
+    }
+
+    @Override
+    public SMPLObject cdr() throws SMPLException {
+        return this.second;
+    }
+
 }

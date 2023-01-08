@@ -30,7 +30,7 @@ public interface Visitor<S, T> {
 
     public T visitExpSize(ExpSize exp, S arg) throws VisitException;
 
-    //public T visitExpDef(ExpDef exp, S arg) throws VisitException;
+    // public T visitExpDef(ExpDef exp, S arg) throws VisitException;
 
     // expressions
     public T visitExpAdd(ExpAdd exp, S arg) throws VisitException;
@@ -60,6 +60,10 @@ public interface Visitor<S, T> {
     public T visitExpEqual(ExpEqual exp, S arg) throws VisitException;
 
     public T visitExpPair(ExpPair exp, S arg) throws VisitException;
+
+    public T visitExpCar(ExpCar exp, S arg) throws VisitException;
+
+    public T visitExpCdr(ExpCdr exp, S arg) throws VisitException;
 
     public T visitExpisPair(ExpisPair exp, S arg) throws VisitException;
 
