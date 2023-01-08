@@ -63,6 +63,18 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 		return result;
 	}
 
+	public SMPLObject visitExpIf(ExpIf ei, Environment<SMPLObject> env) throws VisitException {
+		SMPLObject conditionResult = ei.getCondition().visit(this, env);
+		SMPLObject isTrueResult = conditionResult.isTrue();
+		if (isTrueResult instanceof SMPLBoolean && ((SMPLBoolean) isTrueResult).value) {
+			return ei.getThenBranch().visit(this, env);
+		} else if (ei.hasElseBranch()) {
+			return ei.getElseBranch().visit(this, env);
+		} else {
+			return new SMPLInt(0);
+		}
+	}
+
 	public SMPLObject visitStmtFunDefn(StmtFunDefn fd, Environment<SMPLObject> env)
 			throws VisitException {
 		Environment<SMPLObject> closingEnv = env;
@@ -237,12 +249,12 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 		return val1;
 	}
 
-	public SMPLObject visitExpIf(ExpIf exp, Environment<SMPLObject> env)
-			throws VisitException {
-		// placeholder intialization
-		SMPLObject val1 = new SMPLDouble(1.0);
-		return val1;
-	}
+	// public SMPLObject visitExpIf(ExpIf exp, Environment<SMPLObject> env)
+	// throws VisitException {
+	// // placeholder intialization
+	// SMPLObject val1 = new SMPLDouble(1.0);
+	// return val1;
+	// }
 	/*
 	 * public SMPLObject raise(SMPLObject root1, SMPLDouble root2) {
 	 * // power is done by right to left

@@ -113,4 +113,9 @@ public abstract class SMPLObject {
     public SMPLObject size() throws SMPLException {
         throw new SMPLException("Method not implmented");
     }
+
+    public SMPLObject isTrue() throws SMPLException {
+        throw new SMPLException("method not implemented");
+    }
+
 }

@@ -1,6 +1,6 @@
 public class SMPLBoolean extends SMPLObject {
 
-    private boolean value;
+    public boolean value;
 
     // empty constructor for default initialization
     public SMPLBoolean() {
@@ -14,7 +14,7 @@ public class SMPLBoolean extends SMPLObject {
         return value;
     }
 
-    public void setValue(boolean val){
+    public void setValue(boolean val) {
         this.value = val;
     }
 
@@ -37,4 +37,10 @@ public class SMPLBoolean extends SMPLObject {
             return new SMPLBoolean(false);
         }
     }
+
+    @Override
+    public SMPLObject isTrue() {
+        return this;
+    }
+
 }
