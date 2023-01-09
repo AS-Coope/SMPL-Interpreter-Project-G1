@@ -208,19 +208,6 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 	}
 
 	// print visit methods
-	public SMPLObject visitExpPrint(ExpPrint exp, Environment<SMPLObject> env)
-			throws VisitException {
-		// placeholder intialization
-		SMPLObject val1 = new SMPLDouble(1.0);
-		return val1;
-	}
-
-	public SMPLObject visitExpPrintln(ExpPrintln exp, Environment<SMPLObject> env)
-			throws VisitException {
-		// placeholder intialization
-		SMPLObject val1 = new SMPLDouble(1.0);
-		return val1;
-	}
 
 	// logic methods
 	public SMPLObject visitExpLogic(ExpLogic exp, Environment<SMPLObject> env)
@@ -271,7 +258,7 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 			SMPLObject evalValue = value.visit(this, env);
 			ids.add(id);
 			objs.add(evalValue);
-			//env.put(id, evalValue);
+			// env.put(id, evalValue);
 		}
 		Environment<SMPLObject> letFrame = new Environment<SMPLObject>(env, ids, objs);
 		// evaluate the body in the extended environment
@@ -285,6 +272,18 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 		SMPLObject bind = exp.visit(this, env);
 		env.put(binding.getId(), bind);
 		return defaultValue;
+	}
+
+	public SMPLObject visitExpPrint(ExpPrint exp, Environment<SMPLObject> env) throws VisitException {
+		SMPLObject result = exp.getExp().visit(this, env);
+		System.out.print(result.toString());
+		return result;
+	}
+
+	public SMPLObject visitExpPrintLn(ExpPrintLn exp, Environment<SMPLObject> env) throws VisitException {
+		SMPLObject result = exp.getExp().visit(this, env);
+		System.out.println(result.toString());
+		return result;
 	}
 	/*
 	 * public SMPLObject raise(SMPLObject root1, SMPLDouble root2) {

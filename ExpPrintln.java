@@ -1,30 +1,22 @@
-public class ExpPrintln extends Exp{
-    // can either print a var (or expression) or a string
-    Exp expression;
-    String printString;
-    
-    public ExpPrintln(Exp ex, String inputString){
+public class ExpPrintLn extends Exp {
+    Exp exp;
+
+    public ExpPrintLn(Exp exp) {
         super("println");
-        printString = inputString;
-        expression = ex;
+        this.exp = exp;
     }
 
-    public Exp getExp(){
-        return expression;
-    }
-
-    public String getString(){
-        return printString;
+    public Exp getExp() {
+        return exp;
     }
 
     @Override
     public <S, T> T visit(Visitor<S, T> v, S arg) throws VisitException {
-        return v.visitExpPrintln(this, arg);
+        return v.visitExpPrintLn(this, arg);
     }
 
     @Override
     public String toString() {
-        
-        return "";
+        return "println(" + exp + ")";
     }
 }

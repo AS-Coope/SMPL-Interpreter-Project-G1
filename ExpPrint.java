@@ -1,20 +1,13 @@
 public class ExpPrint extends Exp {
-    
-    // can print an expression (or variable) or an SMPLString
-    Exp expression;
-    String printString;
-    public ExpPrint(Exp exp, String pString){
+    private Exp exp;
+
+    public ExpPrint(Exp exp) {
         super("print");
-        exp = expression;
-        pString = printString;
+        this.exp = exp;
     }
 
-    public Exp getExp(){
-        return expression;
-    }
-
-    public String getString(){
-        return printString;
+    public Exp getExp() {
+        return exp;
     }
 
     @Override
@@ -24,6 +17,6 @@ public class ExpPrint extends Exp {
 
     @Override
     public String toString() {
-        return "";
+        return "print(" + exp + ")";
     }
 }
