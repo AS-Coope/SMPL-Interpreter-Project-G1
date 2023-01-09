@@ -78,7 +78,7 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 		// Retrieve function definition from env if not found then throw exception
 		// iterate over parameter list and evaluate arguements. If plist not equal alist
 		// then throw excep
-		// assign bindings to new frame and evaluate
+		// assign binding to new frame and evaluate
 
 		Environment<SMPLObject> child = new Environment<SMPLObject>();
 
@@ -247,6 +247,44 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 		} else {
 			return new SMPLInt(0);
 		}
+	}
+
+	public SMPLObject visitExpSeq(ExpSeq exp, Environment<SMPLObject> env) throws VisitException {
+		List<Exp> expressions = exp.getExpressions();
+		SMPLObject result = new SMPLInt(0); // default value for an empty sequence
+		for (Exp e : expressions) {
+			result = e.visit(this, env);
+		}
+		return result;
+	}
+
+	public SMPLObject visitExpLet(ExpLet exp, Environment<SMPLObject> env) throws VisitException {
+		ArrayList<Binding> binding = exp.getBindings();
+		ArrayList<String> ids = new ArrayList<String>();
+		ArrayList<SMPLObject> objs = new ArrayList<SMPLObject>();
+		Exp body = exp.getBodyExp();
+
+		// create a new environment extended by the bindings
+		for (Binding b : binding) {
+			String id = b.getId();
+			Exp value = b.getValueExp();
+			SMPLObject evalValue = value.visit(this, env);
+			ids.add(id);
+			objs.add(evalValue);
+			//env.put(id, evalValue);
+		}
+		Environment<SMPLObject> letFrame = new Environment<SMPLObject>(env, ids, objs);
+		// evaluate the body in the extended environment
+		SMPLObject result = body.visit(this, letFrame);
+		return result;
+	}
+
+	public SMPLObject visitExpBind(Binding binding, Environment<SMPLObject> env) throws VisitException {
+		// create a new binding
+		Exp exp = binding.getValueExp();
+		SMPLObject bind = exp.visit(this, env);
+		env.put(binding.getId(), bind);
+		return defaultValue;
 	}
 	/*
 	 * public SMPLObject raise(SMPLObject root1, SMPLDouble root2) {

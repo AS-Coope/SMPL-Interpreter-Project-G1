@@ -81,8 +81,11 @@ terminal Boolean TRUE, FALSE;
 non terminal ArithProgram program;
 non terminal StmtSequence stmtList;
 non terminal Statement stmt;
+non terminal Binding bind;
 non terminal StmtDefinition definition;
 non terminal StmtDefinition assignment; // assigning an expression to an identifier
+//non terminal Binding let;
+non terminal Binding binding;
 
 /* ** Fix these declarations ** */
 non terminal StmtFunDefn funDefn;
@@ -91,6 +94,7 @@ non terminal ArrayList<String> paramListE;
 non terminal ExpFunCall funCall;
 non terminal ArrayList<Exp> argList;
 non terminal ArrayList<Exp> argListE;
+non terminal ArrayList<Binding> bindList;
 non terminal Exp StmtIf; //TODO replace with IR
 non terminal Exp StmtIfElse;
 non terminal ExpLogic LogExp;
@@ -102,8 +106,10 @@ non terminal ExpPair pair;
 non terminal Exp eqv;
 non terminal Exp equal;
 non terminal Exp vec;
-non terminal Exp noIfExp;
-non terminal Exp ifTerm;
+non terminal Exp ifThen;
+non terminal Exp ifThenElse;
+non terminal Exp let;
+//non terminal Exp compound;
 //non terminal Exp randTop;
 non terminal Exp expression;
 non terminal Exp term;
@@ -116,6 +122,17 @@ non terminal empty;
 
 program ::= stmtList:s {: RESULT = new ArithProgram(s); :};
 
+bindList ::= bindList:blst COMMA binding:b {:
+			blst.add(b);
+			RESULT = blst;
+			:} |
+			binding:b{:
+			ArrayList<Binding> bl = new ArrayList<Binding>();
+			bl.add(b);  
+			RESULT = bl; 
+			:};
+binding ::= VAR:v EQU expression:e {: RESULT = new Binding(v, e); :};
+
 stmtList ::= stmtList:lst stmt:s {:
 		lst.add(s); 
 		RESULT = lst;
@@ -123,6 +140,7 @@ stmtList ::= stmtList:lst stmt:s {:
 	     stmt:s {:
 		RESULT = new StmtSequence(s);
 		:};
+
 
 stmt ::= definition:d {: RESULT = d; :} | assignment:a {:RESULT = a; :} |
 	 expression:e {: RESULT = new Statement(e); :} SEMI | funDefn:fd {:RESULT = fd;:};
@@ -132,10 +150,10 @@ stmt ::= definition:d {: RESULT = d; :} | assignment:a {:RESULT = a; :} |
 StmtIf ::= IF LogExp:le COLON expression:consqt END {:RESULT = new ExpIf(le,consqt);:};
 StmtIfElse ::= IF LogExp:le COLON expression:consqt ELSE expression:alt END {:RESULT = new ExpIf(le,consqt,alt);:};
 LogExp ::= expression:l CMP:c expression:r {:RESULT = new ExpLogic(l,r,c);:} | expression:l EQU expression:r {:RESULT = new ExpLogic(l,r,Cmp.EQ);:};
-/*
-StmtIf ::= IF ifTerm:pred THEN expression:consqt {:RESULT = new ExpIf(pred,consqt);:};
-StmtIfElse ::= IF ifTerm:pred THEN expression:consqt ELSE expression:alt {:RESULT = new ExpIf(pred,consqt,alt);:};
-*/
+
+ifThen ::= IF expression:pred THEN ifThenElse:consqt {:RESULT = new ExpIf(pred,consqt);:};
+ifThenElse ::= IF expression:pred THEN expression:consqt ELSE expression:alt {:RESULT = new ExpIf(pred,consqt,alt);:};
+
 funDefn ::= FUN VAR:v LPAREN paramListE:params RPAREN EQU expression:e SEMI {:RESULT = new StmtFunDefn(v,params,e); :}|  
 FUN VAR:v LPAREN paramListE:params RPAREN EQU LBRACE stmtList:s RBRACE {:RESULT = new StmtFunDefn(v,params,s); :};  /* complete this */
 
@@ -153,7 +171,7 @@ definition ::= DEF VAR:v expression:e SEMI{:
 		   RESULT = new StmtDefinition(v, e);
 		:};
 
-
+let ::= LET LPAREN bindList:bl RPAREN pow:p {:RESULT = new ExpLet(bl, p);:};
 
 //eqv ::= ISEQV LPAREN expression:e COMMA expression:j RPAREN {:RESULT = new ExpEqv(e, j);:}; // checking the equivalence
 
@@ -161,12 +179,16 @@ definition ::= DEF VAR:v expression:e SEMI{:
 //vec ::= LSQBRAC COLON expression:e COLON RSQBRAC {:RESULT = new SMPLVector(e);:} // e is a list of expressions
 
 //comment ::= INLCOM {:RESULT = null;:}
-			
+//let ::= LET LPAREN argList:al RPAREN expression:e {:RESULT = new ExpLet(al, e); :};
+
 expression ::= 	expression:e PLUS term:t {:
 			RESULT = new ExpAdd(e, t); :} |
 		expression:e MINUS term:t {:
 			RESULT = new ExpSub(e, t); :} | 
-		term:t {: RESULT = t; :}; //| StmtIf:t {:RESULT = t;:} | StmtIfElse:e {:RESULT = e;:};
+		term:t {: RESULT = t; :} |
+		ifThenElse:ite {:RESULT = ite;:} |
+		ifThen:it {:RESULT = it;:};  
+		//| StmtIf:t {:RESULT = t;:} | StmtIfElse:e {:RESULT = e;:} |
 
 term ::= term:t MUL factor:f {:
 		RESULT = new ExpMul(t, f); :} |
@@ -202,6 +224,11 @@ pow ::= INT:ilit {: RESULT = new ExpLit(ilit); :} |
 		PAIR LPAREN expression:c COMMA expression:g RPAREN {:RESULT = new ExpPair(c,g);:} |
 		CAR LPAREN expression:p RPAREN {:RESULT = new ExpCar(p);:} |
 		CDR LPAREN expression:p RPAREN {:RESULT = new ExpCdr(p);:} | 
-		ISPAIR LPAREN expression:p RPAREN {:RESULT = new ExpisPair(p);:} | funCall:fc {:RESULT = fc;:};
-
+		ISPAIR LPAREN expression:p RPAREN {:RESULT = new ExpisPair(p);:} |
+		funCall:fc {:RESULT = fc;:} |
+		LBRACE stmtList:sl RBRACE {:RESULT = sl;:} | 
+		LPAREN smttList:sl RPAREN {:RESULT = sl;:} |
+		let:lt {:RESULT = lt; :};
+	//PRINTLN LPAREN RPAREN {:System.out.println(5);:}
+	//
 empty ::= ;

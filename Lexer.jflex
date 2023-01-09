@@ -66,8 +66,7 @@ alphanum = {alpha}|[0-9]
 // second regex deals with hexadecimal
 // third regex deals with binary
 
-//signedDouble = ([+|-][0-9]+[.][0-9]*) | ([+|-][0-9]*[.]?[0-9]+) 
-signedDouble = ([0-9]+\.[0.9]+)|(\.[0.9]+)|([0-9]+\.)
+signedDouble = ([+|-][0-9]+[.][0-9]*) | ([+|-][0-9]*[.]?[0-9]+) 
 
 // might need to have {n,m} syntax given 32 ends at some point
 // the first regex allows at least 1 digit before the decimal while none or many after the decimal
