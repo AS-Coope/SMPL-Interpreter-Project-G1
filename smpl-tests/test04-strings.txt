@@ -1,0 +1,6 @@
+//strings
+println("*** Strings test ***");
+//print(substr("foo", 1, 3)); println(" Should be oo");
+"def";  // should not give error
+"hello world" ;  // ensures that spaces are allowed
+print("*** End of string tests ***\n");

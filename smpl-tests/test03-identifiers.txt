@@ -1,0 +1,7 @@
+print("*** Identifiers Tests ***\n");
+def x 1;
+def x1 1 ;
+def x1y 1;
+def 1xy 1;
+def 11xy 1;
+print("*** End of Identifiers tests ***\n");

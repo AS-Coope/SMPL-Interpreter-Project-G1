@@ -1,0 +1,5 @@
+print("*** Integers Tests ***\n");
+print("10: "); println(10);
+print("#b101"); println(#b101);
+print("#x10ff"); println(#x10ff);
+print("*** End of Integers ***\n");

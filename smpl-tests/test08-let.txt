@@ -1,0 +1,12 @@
+// assignment tests
+print("*** Assignment Tests ***\n");
+def x 1 ; print("after def: x = "); print(x) ; println ("... Should be 1");
+x := 3 ; 
+print("after assgn: x = "); print(x); println("... Should be 3");
+def f proc(n) proc(x) n + x ;
+def g f(2);
+print("Should print 5...");
+print(g(3)) ; print("\n");
+f := f(g(3)) ;
+print("Should print 8...");
+print(f(3)) ; print("\n");

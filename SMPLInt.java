@@ -147,7 +147,7 @@ public class SMPLInt extends SMPLObject {
             SMPLInt other = (SMPLInt) obj;
 
             //return new SMPLBoolean(this.equals(other));
-            return new SMPLBoolean(this.value == other.getValue());
+            return new SMPLBoolean(this.equals(other));
             /* 
             SMPLBoolean firstEqual = (SMPLBoolean) this.first.iseqv(other.getFirst());
             SMPLBoolean secondEqual = (SMPLBoolean) this.second.iseqv(other.getSecond());

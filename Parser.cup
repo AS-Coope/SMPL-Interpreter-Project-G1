@@ -227,8 +227,10 @@ pow ::= INT:ilit {: RESULT = new ExpLit(ilit); :} |
 		ISPAIR LPAREN expression:p RPAREN {:RESULT = new ExpisPair(p);:} |
 		funCall:fc {:RESULT = fc;:} |
 		LBRACE stmtList:sl RBRACE {:RESULT = sl;:} | 
-		LPAREN smttList:sl RPAREN {:RESULT = sl;:} |
+		LPAREN stmtList:sl RPAREN {:RESULT = sl;:} |
+		PRINT LPAREN expression:e RPAREN {:RESULT = new ExpPrint(e);:}|
+		PRINTLN LPAREN expression:e RPAREN {:RESULT = new ExpPrintLn(e);:}|
 		let:lt {:RESULT = lt; :};
-	//PRINTLN LPAREN RPAREN {:System.out.println(5);:}
+	
 	//
 empty ::= ;

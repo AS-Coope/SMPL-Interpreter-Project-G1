@@ -57,9 +57,9 @@ alpha = [a-zA-Z_]
 
 alphanum = {alpha}|[0-9]
 
-//signedint = [+|-][0-9]+ 
-//hexint = #x([0-9a-fA-Z]+) 
-//binint = #b([0|1]+)
+signedint = [+|-][0-9]+ 
+hexint = #x([0-9a-fA-Z]+) 
+binint = #b([0|1]+)
 
 // generates signed integers
 // first regex only deals with numbers and signs
@@ -73,7 +73,7 @@ signedDouble = ([+|-][0-9]+[.][0-9]*) | ([+|-][0-9]*[.]?[0-9]+)
 // the second regex allows none or many digits before the decimal while one or more after the decimal
 
 //string = "({alpha}|[^cc]+|(\\n|\\t|\\b|\\f)+)"
-
+string = \".*\"
 //character = "#c({alpha}|[^cc]|(\\n|\\t|\\b|\\f)+)" | "[#u][0-9a-fA-F]{4}" // second part is the hexadecimal and only 4 digits allowed
 
 inlineComment = "//" {nl}
@@ -91,7 +91,7 @@ Comment = {multilineComment}
 			 // skip whitespace
 			}
 <YYINITIAL> {inlineComment} { }
-<YYINITIAL> "//" {return new Symbol(sym.INLCOM);}
+<YYINITIAL> "//".* {}
 // keywords
 <YYINITIAL> "proc" {return new Symbol(sym.PROC);}
 <YYINITIAL> "def" {return new Symbol(sym.DEF);}
@@ -176,12 +176,15 @@ Comment = {multilineComment}
 		}
 
 // covers the three representations of signed integers
-//<YYINITIAL> {signedint} {return new Symbol(sym.INT, Integer.valueOf(yytext()));}
-//<YYINITIAL> {hexint} {return new Symbol(sym.INT, Integer.valueOf(yytext(),16));}
-//<YYINITIAL> {binint} {return new Symbol(sym.INT, Integer.valueOf(yytext(),2));}
+<YYINITIAL> {signedint} {return new Symbol(sym.INT, Integer.valueOf(yytext().substring(1)));}
+<YYINITIAL> {hexint} {return new Symbol(sym.INT, Integer.valueOf(yytext().substring(2),16));}
+<YYINITIAL> {binint} {return new Symbol(sym.INT, Integer.valueOf(yytext().substring(2),2));}
 //<YYINITIAL> {signedDouble} {sym.DOUBLE, Double.yytext();}
 <YYINITIAL>  {signedDouble} {
 			return new Symbol(sym.DOUBLE, Double.valueOf(yytext()));
+			}
+<YYINITIAL>  {string} {
+			return new Symbol(sym.STRING, yytext());
 			}
 
 <YYINITIAL>    \S		{ // error situation

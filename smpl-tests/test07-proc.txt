@@ -1,0 +1,6 @@
+// proc tests
+print("*** proc tests ***\n");
+proc(x) x + 1 ;
+proc(x) proc(n) x + n ;
+print(proc(x) x(x)) ; print("\n");
+print("*** End of proc tests ***\n");

@@ -1,0 +1,14 @@
+// def tests
+println("*** def tests ***");
+println("def x 1 ...");
+def x 1 ;
+print("x = "); print(x) ; print("\n");
+
+println("def x 1 + 2 * 3 ...") ;
+def x 1 + 2 * 3 ;
+print("x = "); print(x); println(" Should be 7");
+
+println("def s <quote foo>") ;
+def s "foo" ;
+print("s = "); print(s); print("\n");
+println("*** End of def tests ***");
