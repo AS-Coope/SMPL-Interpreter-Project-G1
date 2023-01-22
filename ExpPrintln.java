@@ -1,7 +1,7 @@
-public class ExpPrintLn extends Exp {
+public class ExpPrintln extends Exp {
     Exp exp;
 
-    public ExpPrintLn(Exp exp) {
+    public ExpPrintln(Exp exp) {
         super("println");
         this.exp = exp;
     }
@@ -12,7 +12,7 @@ public class ExpPrintLn extends Exp {
 
     @Override
     public <S, T> T visit(Visitor<S, T> v, S arg) throws VisitException {
-        return v.visitExpPrintLn(this, arg);
+        return v.visitExpPrintln(this, arg);
     }
 
     @Override

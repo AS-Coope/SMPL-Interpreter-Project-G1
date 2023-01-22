@@ -280,7 +280,7 @@ public class Evaluator implements Visitor<Environment<SMPLObject>, SMPLObject> {
 		return result;
 	}
 
-	public SMPLObject visitExpPrintLn(ExpPrintLn exp, Environment<SMPLObject> env) throws VisitException {
+	public SMPLObject visitExpPrintln(ExpPrintln exp, Environment<SMPLObject> env) throws VisitException {
 		SMPLObject result = exp.getExp().visit(this, env);
 		System.out.println(result.toString());
 		return result;

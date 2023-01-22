@@ -90,7 +90,7 @@ Comment = {multilineComment}
 <YYINITIAL>	{ws}	{
 			 // skip whitespace
 			}
-<YYINITIAL> {inlineComment} { }
+//<YYINITIAL> {inlineComment} { }
 <YYINITIAL> "//".* {}
 // keywords
 <YYINITIAL> "proc" {return new Symbol(sym.PROC);}

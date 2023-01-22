@@ -26,7 +26,7 @@ public interface Visitor<S, T> {
 
     public T visitExpPrint(ExpPrint print, S arg) throws VisitException;
 
-    public T visitExpPrintLn(ExpPrintLn exp, S arg) throws VisitException;
+    public T visitExpPrintln(ExpPrintln exp, S arg) throws VisitException;
 
     public T visitExpSize(ExpSize exp, S arg) throws VisitException;
 

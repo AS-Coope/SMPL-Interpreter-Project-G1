@@ -229,7 +229,7 @@ pow ::= INT:ilit {: RESULT = new ExpLit(ilit); :} |
 		LBRACE stmtList:sl RBRACE {:RESULT = sl;:} | 
 		LPAREN stmtList:sl RPAREN {:RESULT = sl;:} |
 		PRINT LPAREN expression:e RPAREN {:RESULT = new ExpPrint(e);:}|
-		PRINTLN LPAREN expression:e RPAREN {:RESULT = new ExpPrintLn(e);:}|
+		PRINTLN LPAREN expression:e RPAREN {:RESULT = new ExpPrintln(e);:}|
 		let:lt {:RESULT = lt; :};
 	
 	//
