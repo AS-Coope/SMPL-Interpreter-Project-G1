@@ -1,7 +1,23 @@
 # SMPL-Interpreter-Project-G1
 COMP 3652 - Final Project to complete an interpreter for the language SMPL
+Lecturer: Prof. Daniel Coore
 
 Final Date for Checkoff: January 4, 2022 
+
+Notes:
+<l> means that the argument l is mandatory.
+[p] means that the argument p is mandatory.
+
+Functionality (SMPL currently supports):
+- Signed Integers (Binary, Hexadecimal, Decimal). Binary Numbers are prefixed by #b and Hexadecimal Numbers are prefixed by #x.
+- Strings are interpreted (escape characters are not interpreted properly).
+- Characters are currently not interpreted.
+- Pairs. Format: pair(<e1>, <e2>), where e1 and e2 are objects.
+- Car, returns the first object in a pair. Format: car(<p>), where p is a pair.
+- Cdr, returns the second object in a pair. Format: cdr(<p>), where p is a pair.
+- IsPair, returns true if the object is a pair. Format: pair?(<p>), where p is a pair.
+- List, returns a newly allocated list (sequence of pairs terminating in nil) containing the values of the expression e1 through en. Format: list([<e1>, ..., <en>]).
+
 
 Objectives:
 1. Interpreting statements and expressions
