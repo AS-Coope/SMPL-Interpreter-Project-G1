@@ -13,7 +13,7 @@ Functionality (SMPL currently supports):
 - Strings are interpreted (escape characters are not interpreted properly).
 - Characters are currently not interpreted.
 - Pairs. Format: pair(<e1>, <e2>), where e1 and e2 are objects.
-- Car, returns the first object in a pair. Format: car(<p>), where p is a pair.
+- Car, returns the first object in a pair. Format: car(\<p>), where p is a pair.
 - Cdr, returns the second object in a pair. Format: cdr(<p>), where p is a pair.
 - IsPair, returns true if the object is a pair. Format: pair?(<p>), where p is a pair.
 - List, returns a newly allocated list (sequence of pairs terminating in nil) containing the values of the expression e1 through en. Format: list([<e1>, ..., <en>]).
