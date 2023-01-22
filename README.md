@@ -5,7 +5,7 @@ Lecturer: Prof. Daniel Coore
 Final Date for Checkoff: January 4, 2022 
 
 Notes:
-<l> means that the argument l is mandatory.
+\<l> means that the argument l is mandatory.
 [p] means that the argument p is mandatory.
 
 Functionality (SMPL currently supports):
