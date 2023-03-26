@@ -38,4 +38,5 @@ The following are required to run this project:
 - [Java](https://www.oracle.com/java/) - (SDK installed and added to path [Windows])  
 - [Cup](https://github.com/duhai-alshukaili/CUP) - (Used for parsing)  
 - [JFlex](https://jflex.de/download.html) - (Used for regular expression [syntax])  
+  
 Instructions on how to use the SMPL interpreter will be added in coming days...
