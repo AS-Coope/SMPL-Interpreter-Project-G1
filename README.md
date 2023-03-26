@@ -1,7 +1,7 @@
 # SMPL-Interpreter-Project-G1
 COMP 3652 - Final Project to complete an interpreter for the language SMPL.
 
-## Current Objective + Inspiration
+## Project Overview + Inspiration
 With foundational code developed and implemented by Professor D. Coore, the aim was (for us) to create an interpreter for the language SMPL based on its specification (at the time it was a group project). Despite the course coming to an end, this project was very interesting and as such, diving deeper into designing and implementing more functionality for the language is a burning desire. 
 <p>
 It is better to have objectives to guide in improving the language's capabilities than just arbitrarily implement various functionalities. As such, the final objective of this language is to build a simple game engine. This is pretty long term and will be more defined as the days progess but to have milestones for meeting that target, there will be other objectives. One such objective would be a simple physics engine, which would end up being a part of the game engine. Of course, given that is a pretty big milestone too, so other objectives will be created.
