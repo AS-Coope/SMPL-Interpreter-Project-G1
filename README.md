@@ -34,8 +34,8 @@ Complete Specification Document Objects
 
 ## How to use
 
-The following are required to run this project
-- Java (SDK installed and added to path [Windows])  
+The following are required to run this project:
+- [Java](https://www.oracle.com/java/) - (SDK installed and added to path [Windows])  
 - Cup (Used for parsing)  
-- Jflex (Used for regular expression [syntax])  
+- [JFlex](https://jflex.de/download.html) - (Used for regular expression [syntax])  
 Instructions on how to use the SMPL interpreter currently will be added in coming days...
