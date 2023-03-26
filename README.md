@@ -68,7 +68,7 @@ For example:
 ``` java -cp ".;<path to your java-cup-11b.jar file>;lib3652.jar" Main -w ArithInterpreter - ```  
 After which you will be prompted to enter code following SMPL's syntax.  
 
-#### Testing SMPL
+### Testing SMPL
 Try this:  
 ```x:=2;```  
 
