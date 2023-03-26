@@ -15,19 +15,19 @@ Inspiration for building a game engine (and physics engine) came after watching 
 <p>
 
 ## Objectives
-Create Game Engine  
-[ ] - Create Physics Engine    
-[ ] - Create Renderer  
-[ ] - Create Audio Engine   
+- [ ] Create Game Engine  
+- - [ ] Create Physics Engine    
+- - [ ] Create Renderer  
+- - [ ] Create Audio Engine   
 
-Create Physics Engine  
+- [ ] Create Physics Engine  
 
-Complete Specification Document Objects  
-[ ] - Functions (proc)  
-[ ] - Switch Statements  
-[ ] - Conditional Statements  
-[ ] - File Reading  
-[ ] - Object Oriented Programming  
+- [ ] Complete Specification Document Objects  
+- - [ ] Functions (proc)  
+- - [ ] Switch Statements  
+- - [ ] Conditional Statements  
+- - [ ] File Reading  
+- - [ ] Object Oriented Programming  
 
 
 *****More objectives to be added in the future
