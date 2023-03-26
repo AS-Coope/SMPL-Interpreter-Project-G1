@@ -10,7 +10,8 @@ As I am currently learning to develop a game engine using C++ and Object Oriente
 <p>
 SMPL is built on top of Java.
 <p>
-Inspiration for building a game engine (and physics engine) came after watching this video: [Simulating an Entire Car Engine (yes, it makes noise)](https://www.youtube.com/watch?v=RKT-sKtR970)
+Inspiration for building a game engine (and physics engine) came after watching this video:   
+[Simulating an Entire Car Engine](https://www.youtube.com/watch?v=RKT-sKtR970)
 
 <p>
 
@@ -36,7 +37,45 @@ Inspiration for building a game engine (and physics engine) came after watching 
 
 The following are required to run this project:
 - [Java](https://www.oracle.com/java/) - (SDK installed and added to path [Windows])  
-- [Cup](https://github.com/duhai-alshukaili/CUP) - (Used for parsing)  
-- [JFlex](https://jflex.de/download.html) - (Used for regular expression [syntax])  
+- [Cup](https://github.com/duhai-alshukaili/CUP) - (Used for parsing; Add to path)  
+- [JFlex](https://jflex.de/download.html) - (Used for regular expression [syntax]; Add to path) 
   
-Instructions on how to use the SMPL interpreter will be added in coming days...
+Instructions on adding each to path will be added over the coming days (However, the method used to add Java to path is similar for Cup and JFlex)...
+  
+### Windows
+
+First, clone the project to your local machine.  
+1. Navigate to the directory that has all the java files via the command prompt  
+OR 
+Navigate to that directory and click in the address bar  
+![Windows File Explorer Address Bar](https://user-images.githubusercontent.com/94488901/227793032-650bb60c-9d66-4fe7-8b6b-b661ed647ee1.png)
+Then type cmd and press the Enter key  
+
+2. Enter the following command:  
+```jflex Lexer.jflex```
+
+3. Enter the following command:
+```cup -parser ArithParser Parser.cup```
+
+4. Enter the following command (compiles the Java files):  
+```javac -classpath ".;<the path of your java-cup-11b.jar file>;lib3652.jar" *.java```  
+In the above line, substitute the actual path to your java cup jar file for
+> \<the path of your java-cup-11b.jar file>
+>  
+For example:  
+![Example Java Cup Path](https://user-images.githubusercontent.com/94488901/227794099-36b84da5-a5e3-4059-b963-644db292878c.png)  
+5. Enter the following command:
+``` java -cp ".;<path to your java-cup-11b.jar file>;lib3652.jar" Main -w ArithInterpreter - ```  
+After which you will be prompted to enter code following SMPL's syntax.  
+
+#### Testing SMPL
+Try this:  
+```x:=2;```  
+
+The press the Enter key.  
+Then type  
+```.```  
+
+Then press the Enter key again.  
+The following should be returned:  
+```Result: 2```
