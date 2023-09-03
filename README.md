@@ -3,17 +3,14 @@ COMP 3652 - Final Project to complete an interpreter for the language SMPL.
 
 ## Project Overview + Inspiration
 With foundational code developed and implemented by Professor D. Coore, the aim was (for us) to create an interpreter for the language SMPL based on its specification (at the time it was a group project). Despite the course coming to an end, this project was very interesting and as such, diving deeper into designing and implementing more functionality for the language is a burning desire. 
-<p>
-It is better to have objectives to guide in improving the language's capabilities than just arbitrarily implement various functionalities. As such, the final objective of this language is to build a simple game engine. This is pretty long term and will be more defined as the days progess but to have milestones for meeting that target, there will be other objectives. One such objective would be a simple physics engine, which would end up being a part of the game engine. Of course, given that is a pretty big milestone too, so other objectives will be created.
-<p> 
-As I am currently learning to develop a game engine using C++ and Object Oriented Programming (with the ECS architectural pattern being used), I'm sure that will help me in understanding how to approach such a heavy task in SMPL. Given Object Oriented Programming will be used, making SMPL Object Oriented, which was an optional extension Professor Coore detailed in the specification, will go a long way. 
-<p>
-SMPL is built on top of Java.
-<p>
-Inspiration for building a game engine (and physics engine) came after watching this video:   
-[Simulating an Entire Car Engine](https://www.youtube.com/watch?v=RKT-sKtR970)
 
-<p>
+It is better to have objectives to guide in improving the language's capabilities than just arbitrarily implement various functionalities. As such, the final objective of this language is to build a simple game engine. This is pretty long term and will be more defined as the days progess but to have milestones for meeting that target, there will be other objectives. One such objective would be a simple physics engine, which would end up being a part of the game engine. Of course, given that is a pretty big milestone too, so other objectives will be created.
+
+As I am currently learning to develop a game engine using C++ and Object Oriented Programming (with the ECS architectural pattern being used), I'm sure that will help me in understanding how to approach such a heavy task in SMPL. Given Object Oriented Programming will be used, making SMPL Object Oriented, which was an optional extension Professor Coore detailed in the specification, will go a long way.  
+
+SMPL is built on top of Java.
+
+Inspiration for building a game engine (and physics engine) came after watching this video: [Simulating an Entire Car Engine](https://www.youtube.com/watch?v=RKT-sKtR970)
 
 ## Objectives
 - [ ] Create Game Engine  
@@ -59,7 +56,8 @@ Then type cmd and press the Enter key
 
 4. Enter the following command (compiles the Java files):  
 ```javac -classpath ".;<the path of your java-cup-11b.jar file>;lib3652.jar" *.java```  
-In the above line, substitute the actual path to your java cup jar file for
+**NOTE: the classpath separator on Windows is `;`**  
+In the above code line, substitute the actual path to your java cup jar file for
 > \<the path of your java-cup-11b.jar file>
 >  
 For example:  
